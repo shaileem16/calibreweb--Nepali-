@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block header %}
+<link href="{{ url_for('static', filename='css/libs/bootstrap-table.min.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<div class="discover">
+    <h2>{{_('कार्यहरू')}}</h2>
+    <table class="table table-no-bordered" id="tasktable" data-url="{{ url_for('tasks.get_email_status_json') }}" data-sort-name="starttime" data-sort-order="asc" data-locale="{{ current_user.locale }}">
+      <thead>
+        <tr>
+            {% if current_user.role_admin() %}
+            <th data-halign="right" data-align="right" data-field="user" data-sortable="true">{{_('प्रयोगकर्ता')}}</th>
+            {% endif %}
+            <th data-halign="right" data-align="right" data-field="taskMessage" data-sortable="true">{{_('कार्य')}}</th>
+            <th data-halign="right" data-align="right" data-field="status" data-sortable="true">{{_('स्थिति')}}</th>
+            <th data-halign="right" data-align="right" data-field="progress" data-sortable="true" data-sorter="elementSorter">{{_('प्रगति')}}</th>
+            <th data-halign="right" data-align="right" data-field="runtime" data-sortable="true" data-sort-name="rt">{{_('चलाइको समय')}}</th>
+            <th data-halign="right" data-align="right" data-field="starttime" data-sortable="true" data-sort-name="id">{{_('प्रारम्भ समय')}}</th>
+            {% if current_user.role_admin() %}
+            <th data-halign="right" data-align="right" data-formatter="TaskActions" data-switchable="false">{{_('क्रियाकलापहरू')}}</th>
+            {% endif %}
+            <th data-field="id" data-visible="false"></th>
+            <th data-field="rt" data-visible="false"></th>
+        </tr>
+      </thead>
+    </table>
+</div>
+{% endblock %}
+{% block modal %}
+{{ delete_book(current_user.role_delete_books()) }}
+{% if current_user.role_admin() %}
+<div class="modal fade" id="cancelTaskModal" role="dialog" aria-labelledby="metaCancelTaskLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-center">
+          <span>{{_('के तपाईं निश्चित हुनुहुन्छ?')}}</span>
+      </div>
+        <div class="modal-body text-center">
+          <p>
+            <span>{{_('यो कार्य रद्द गरिनेछ। यस कार्यले गरेको कुनै प्रगति सुरक्षित राखिनेछ।')}}</span>
+            <span>{{_('यदि यो नियमित कार्य हो भने, यसले अर्को नियमित समयमा पुनः सुरु गरिनेछ।')}}</span>
+          </p>
+        </div>
+      <div class="modal-footer">
+        <input type="button" class="btn btn-danger" value="{{_('ठिक छ')}}" name="cancel_task_confirm" id="cancel_task_confirm" data-dismiss="modal">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{_('रद्द गर्नुहोस्')}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endblock %}
+{% block js %}
+<script src="{{ url_for('static', filename='js/libs/bootstrap-table/bootstrap-table.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/libs/bootstrap-table/bootstrap-table-locale-all.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/table.js') }}"></script>
+
+{% endblock %}
