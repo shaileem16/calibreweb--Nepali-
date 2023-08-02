@@ -35,5 +35,6 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 For any questions or suggestions, please feel free to contact us.
+shaileemarahatta123@gmail.com
 
 Happy reading in Nepali!
