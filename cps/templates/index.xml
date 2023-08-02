@@ -3,123 +3,124 @@
   <id>urn:uuid:2853dacf-ed79-42f5-8e8a-a7bb3d1ae6a2</id>
   <updated>{{ current_time }}</updated>
   <link rel="self" href="{{url_for('opds.feed_index')}}" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
-  <link rel="start" title="{{_('Start')}}" href="{{url_for('opds.feed_index')}}"
+  <link rel="start" title="{{_('सुरु')}}" href="{{url_for('opds.feed_index')}}"
         type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
   <link rel="search"
       href="{{url_for('opds.feed_osd')}}"
       type="application/opensearchdescription+xml"/>
-  <link type="application/atom+xml" rel="search" title="{{_('Search')}}" href="{{url_for('opds.feed_cc_search')}}/{searchTerms}" />
+  <link type="application/atom+xml" rel="search" title="{{_('खोज')}}"
+    href="{{url_for('opds.feed_cc_search')}}/{searchTerms}" />
   <title>{{instance}}</title>
   <author>
     <name>{{instance}}</name>
     <uri>https://github.com/janeczku/calibre-web</uri>
   </author>
   <entry>
-    <title>{{_('Alphabetical Books')}}</title>
+    <title>{{_('वर्णमालाअनुसार पुस्तकहरू')}}</title>
     <link href="{{url_for('opds.feed_booksindex')}}" type="application/atom+xml;profile=opds-catalog"/>
     <id>{{url_for('opds.feed_booksindex')}}</id>
     <updated>{{ current_time }}</updated>
-    <content type="text">{{_('Books sorted alphabetically')}}</content>
+    <content type="text">{{_('पुस्तकहरू वर्णमालाअनुसार क्रमबद्ध गरिएका')}}</content>
   </entry>
   <entry>
-    <title>{{_('Hot Books')}}</title>
+    <title>{{_('प्रसिद्ध पुस्तकहरू')}}</title>
     <link href="{{url_for('opds.feed_hot')}}" type="application/atom+xml;profile=opds-catalog"/>
     <id>{{url_for('opds.feed_hot')}}</id>
     <updated>{{ current_time }}</updated>
-    <content type="text">{{_('Popular publications from this catalog based on Downloads.')}}</content>
+    <content type="text">{{_('डाउनलोडका आधारमा यस कैटालोगबाट प्रसिद्ध प्रकाशनहरू')}}</content>
   </entry>
   <entry>
-    <title>{{_('Top Rated Books')}}</title>
+    <title>{{_('शीर्ष दर दिइएका पुस्तकहरू')}}</title>
     <link href="{{url_for('opds.feed_best_rated')}}" type="application/atom+xml;profile=opds-catalog"/>
     <id>{{url_for('opds.feed_best_rated')}}</id>
     <updated>{{ current_time }}</updated>
-    <content type="text">{{_('Popular publications from this catalog based on Rating.')}}</content>
+    <content type="text">{{_('दरिङको आधारमा यस कैटालोगबाट प्रसिद्ध प्रकाशनहरू')}}</content>
   </entry>
   <entry>
-    <title>{{_('Recently added Books')}}</title>
+    <title>{{_('हालै थपिएका पुस्तकहरू')}}</title>
     <link href="{{url_for('opds.feed_new')}}" type="application/atom+xml;profile=opds-catalog"/>
     <id>{{url_for('opds.feed_new')}}</id>
     <updated>{{ current_time }}</updated>
-    <content type="text">{{_('The latest Books')}}</content>
+    <content type="text">{{_('नयाँ पुस्तकहरू')}}</content>
   </entry>
   <entry>
-    <title>{{_('Random Books')}}</title>
+    <title>{{_('यादृच्छिक पुस्तकहरू')}}</title>
     <link href="{{url_for('opds.feed_discover')}}" type="application/atom+xml;profile=opds-catalog"/>
     <id>{{url_for('opds.feed_discover')}}</id>
     <updated>{{ current_time }}</updated>
-    <content type="text">{{_('Show Random Books')}}</content>
+    <content type="text">{{_('यादृच्छिक पुस्तकहरू देखाउनुहोस्')}}</content>
   </entry>
   {% if not current_user.is_anonymous %}
   <entry>
-    <title>{{_('Read Books')}}</title>
+    <title>{{_('पढेका पुस्तकहरू')}}</title>
     <link href="{{url_for('opds.feed_read_books')}}" type="application/atom+xml;profile=opds-catalog"/>
     <id>{{url_for('opds.feed_read_books')}}</id>
     <updated>{{ current_time }}</updated>
-    <content type="text">{{_('Read Books')}}</content>
+    <content type="text">{{_('पढेका पुस्तकहरू')}}</content>
   </entry>
   <entry>
-    <title>{{_('Unread Books')}}</title>
+    <title>{{_('पढेनने पुस्तकहरू')}}</title>
     <link href="{{url_for('opds.feed_unread_books')}}" type="application/atom+xml;profile=opds-catalog"/>
     <id>{{url_for('opds.feed_unread_books')}}</id>
     <updated>{{ current_time }}</updated>
-    <content type="text">{{_('Unread Books')}}</content>
+    <content type="text">{{_('पढेनने पुस्तकहरू')}}</content>
   </entry>
   {% endif %}
   <entry>
-    <title>{{_('Authors')}}</title>
+    <title>{{_('लेखकहरू')}}</title>
     <link href="{{url_for('opds.feed_authorindex')}}" type="application/atom+xml;profile=opds-catalog"/>
     <id>{{url_for('opds.feed_authorindex')}}</id>
     <updated>{{ current_time }}</updated>
-    <content type="text">{{_('Books ordered by Author')}}</content>
+    <content type="text">{{_('लेखकको आधारमा क्रमबद्ध गरिएका पुस्तकहरू')}}</content>
   </entry>
   <entry>
-    <title>{{_('Publishers')}}</title>
+    <title>{{_('प्रकाशकहरू')}}</title>
     <link href="{{url_for('opds.feed_publisherindex')}}" type="application/atom+xml;profile=opds-catalog"/>
     <id>{{url_for('opds.feed_publisherindex')}}</id>
     <updated>{{ current_time }}</updated>
-    <content type="text">{{_('Books ordered by publisher')}}</content>
+    <content type="text">{{_('प्रकाशकको आधारमा क्रमबद्ध गरिएका पुस्तकहरू')}}</content>
   </entry>
   <entry>
-    <title>{{_('Categories')}}</title>
+    <title>{{_('विषयकहरू')}}</title>
     <link href="{{url_for('opds.feed_categoryindex')}}" type="application/atom+xml;profile=opds-catalog"/>
     <id>{{url_for('opds.feed_categoryindex')}}</id>
     <updated>{{ current_time }}</updated>
-    <content type="text">{{_('Books ordered by category')}}</content>
+    <content type="text">{{_('विषयको आधारमा क्रमबद्ध गरिएका पुस्तकहरू')}}</content>
   </entry>
   <entry>
-    <title>{{_('Series')}}</title>
+    <title>{{_('सीरिजहरू')}}</title>
     <link href="{{url_for('opds.feed_seriesindex')}}" type="application/atom+xml;profile=opds-catalog"/>
     <id>{{url_for('opds.feed_seriesindex')}}</id>
     <updated>{{ current_time }}</updated>
-    <content type="text">{{_('Books ordered by series')}}</content>
+    <content type="text">{{_('सीरिजको आधारमा क्रमबद्ध गरिएका पुस्तकहरू')}}</content>
   </entry>
   <entry>
-    <title>{{_('भाषा')}}</title>
+    <title>{{_('भाषाहरू')}}</title>
     <link href="{{url_for('opds.feed_languagesindex')}}" type="application/atom+xml;profile=opds-catalog"/>
     <id>{{url_for('opds.feed_languagesindex')}}</id>
     <updated>{{ current_time }}</updated>
-    <content type="text">{{_('Books ordered by भाषा')}}</content>
+    <content type="text">{{_('भाषाको आधारमा क्रमबद्ध गरिएका पुस्तकहरू')}}</content>
   </entry>
   <entry>
-    <title>{{_('Ratings')}}</title>
+    <title>{{_('दरहरू')}}</title>
     <link href="{{url_for('opds.feed_ratingindex')}}" type="application/atom+xml;profile=opds-catalog"/>
     <id>{{url_for('opds.feed_ratingindex')}}</id>
     <updated>{{ current_time }}</updated>
-    <content type="text">{{_('Books ordered by Rating')}}</content>
+    <content type="text">{{_('दरको आधारमा क्रमबद्ध गरिएका पुस्तकहरू')}}</content>
   </entry>
 
   <entry>
-    <title>{{_('File formats')}}</title>
+    <title>{{_('फाईल ढाँचाहरू')}}</title>
     <link href="{{url_for('opds.feed_formatindex')}}" type="application/atom+xml;profile=opds-catalog"/>
     <id>{{url_for('opds.feed_formatindex')}}</id>
     <updated>{{ current_time }}</updated>
-    <content type="text">{{_('Books ordered by file formats')}}</content>
+    <content type="text">{{_('फाईल ढाँचाको आधारमा क्रमबद्ध गरिएका पुस्तकहरू')}}</content>
   </entry>
   <entry>
-    <title>{{_('Shelves')}}</title>
+    <title>{{_('शेल्भहरू')}}</title>
     <link  href="{{url_for('opds.feed_shelfindex')}}" type="application/atom+xml;profile=opds-catalog"/>
     <id>{{url_for('opds.feed_shelfindex')}}</id>
     <updated>{{ current_time }}</updated>
-    <content type="text">{{_('Books organized in shelves')}}</content>
+    <content type="text">{{_('शेल्भमा व्यवस्थित गरिएका पुस्तकहरू')}}</content>
   </entry>
 </feed>

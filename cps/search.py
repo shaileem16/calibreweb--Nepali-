@@ -46,7 +46,7 @@ def simple_search():
         return render_title_template('search.html',
                                      searchterm="",
                                      result_count=0,
-                                     title=_("Search"),
+                                     title=_("खोज"),
                                      page="search")
 
 
@@ -340,7 +340,7 @@ def render_adv_search_results(term, offset=None, order=None, limit=None):
                                  pagination=pagination,
                                  entries=entries,
                                  result_count=result_count,
-                                 title=_("Advanced Search"), page="advsearch",
+                                 title=_("उन्नत खोज"), page="advsearch",
                                  order=order[1])
 
 
@@ -372,7 +372,7 @@ def render_prepare_search_form(cc):
     else:
         languages = None
     return render_title_template('search_form.html', tags=tags, languages=languages, extensions=extensions,
-                                 series=series,shelves=shelves, title=_("Advanced Search"), cc=cc, page="advsearch")
+                                 series=series,shelves=shelves, title=_("उन्नत खोज"), cc=cc, page="advsearch")
 
 
 def render_search_results(term, offset=None, order=None, limit=None):
@@ -390,7 +390,7 @@ def render_search_results(term, offset=None, order=None, limit=None):
                                  adv_searchterm=term,
                                  entries=entries,
                                  result_count=result_count,
-                                 title=_("Search"),
+                                 title=_(" खोज"),
                                  page="search",
                                  order=order[1])
 

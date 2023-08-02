@@ -9,7 +9,7 @@
   <form role="form" class="col-md-10 col-lg-6" method="POST" autocomplete="off">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <div class="form-group">
-      <label for="schedule_start_time">{{_('Start Time')}}</label>
+      <label for="schedule_start_time">{{_('सुरु गर्ने समय')}}</label>
       <select name="schedule_start_time" id="schedule_start_time" class="form-control">
         {% for n in starttime %}
           <option value="{{n[0]}}" {% if config.schedule_start_time == n[0] %}selected{% endif %}>{{n[1]}}</option>
@@ -17,7 +17,7 @@
       </select>
     </div>
     <div class="form-group">
-      <label for="schedule_duration">{{_('Maximum Duration')}}</label>
+      <label for="schedule_duration">{{_('अधिकतम अवधि')}}</label>
       <select name="schedule_duration" id="schedule_duration" class="form-control">
         {% for n in duration %}
           <option value="{{n[0]}}" {% if config.schedule_duration == n[0] %}selected{% endif %}>{{n[1]}}</option>
@@ -26,7 +26,7 @@
     </div>
     <div class="form-group">
       <input type="checkbox" id="schedule_generate_book_covers" name="schedule_generate_book_covers" {% if config.schedule_generate_book_covers %}checked{% endif %}>
-      <label for="schedule_generate_book_covers">{{_('Generate Thumbnails')}}</label>
+      <label for="schedule_generate_book_covers">{{_('स्थानका नामूनाहरू बनाउनुहोस्')}}</label>
     </div>
     <!--div class="form-group">
       <input type="checkbox" id="schedule_generate_series_covers" name="schedule_generate_series_covers" {% if config.schedule_generate_series_covers %}checked{% endif %}>
@@ -34,15 +34,15 @@
     </div-->
     <div class="form-group">
       <input type="checkbox" id="schedule_reconnect" name="schedule_reconnect" {% if config.schedule_reconnect %}checked{% endif %}>
-      <label for="schedule_reconnect">{{_('Reconnect Calibre Database')}}</label>
+      <label for="schedule_reconnect">{{_('क्यालिबर डाटाबेस संपर्क पुनर्संधान गर्नुहोस्')}}</label>
     </div>
     <div class="form-group">
       <input type="checkbox" id="schedule_metadata_backup" name="schedule_metadata_backup" {% if config.schedule_metadata_backup %}checked{% endif %}>
-      <label for="schedule_metadata_backup">{{_('Generate Metadata Backup Files')}}</label>
+      <label for="schedule_metadata_backup">{{_('मेटाडाटा ब्याकअप फाईलहरू बनाउनुहोस्')}}</label>
     </div>
 
-    <button type="submit" name="submit" value="submit" class="btn btn-default">{{_('Save')}}</button>
-    <a href="{{ url_for('admin.admin') }}" id="email_back" class="btn btn-default">{{_('Cancel')}}</a>
+    <button type="submit" name="submit" value="submit" class="btn btn-default">{{_('सेभ गर्नुहोस्')}}</button>
+    <a href="{{ url_for('admin.admin') }}" id="email_back" class="btn btn-default">{{_('रद्द गर्नुहोस्')}}</a>
   </form>
 </div>
 {% endblock %}

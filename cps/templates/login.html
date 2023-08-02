@@ -27,11 +27,11 @@
       <a class="btn btn-default" id="register" href="{{url_for('web.register')}}"><span class="glyphicon glyphicon-user"></span> {{_('दर्ता गर्नुहोस्')}}</a>
       {% endif %}
       {% if g.allow_anonymous %}
-      <a class="btn btn-default" href="{{url_for('web.index')}}">{{ _('Home') }}</a>
+      <a class="btn btn-default" href="{{url_for('web.index')}}">{{ _('घर') }}</a>
       {% endif %}
     {%endif%}
     {% if config.config_remote_login %}
-    <a href="{{url_for('remotelogin.remote_login')}}" id="remote_login" class="pull-right">{{_('Log in with Magic Link')}}</a>
+    <a href="{{url_for('remotelogin.remote_login')}}" id="remote_login" class="pull-right">{{_('म्याजिक लिङ्कसँग लग - इन गर्नुहोस्')}}</a>
     {% endif %}
     {% if config.config_login_type == 2 %}
       {% if 1 in oauth_check %}

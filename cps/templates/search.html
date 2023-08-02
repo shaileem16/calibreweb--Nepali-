@@ -3,8 +3,8 @@
 {% block body %}
 <div class="discover">
     {% if entries|length < 1 %}
-      <h2>{{_('No Results Found')}}</h2>
-      <p>{{_('Search Term:')}} {{adv_searchterm}}</p>
+      <h2>{{_('कुनै परिणाम फेला परेन')}}</h2>
+      <p>{{_('खोज शब्द:')}} {{adv_searchterm}}</p>
     {% else %}
       <h2>{{result_count}} {{_('Results for:')}} {{adv_searchterm}}</h2>
       {% if current_user.is_authenticated %}
@@ -13,7 +13,7 @@
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <div class="btn-group" role="group" aria-label="Add to shelves">
               <button id="add-to-shelf" type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="glyphicon glyphicon-list"></span> {{_('Add to shelf')}}
+                <span class="glyphicon glyphicon-list"></span> {{_('शेल्फमा थप्नुहोस्')}}
                 <span class="caret"></span>
               </button>
               <ul id="add-to-shelves" class="dropdown-menu" aria-labelledby="add-to-shelf">

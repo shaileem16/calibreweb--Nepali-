@@ -2,7 +2,7 @@
 {% block body %}
   <div class="col-sm-8 col-lg-8 col-xs-12">
     <h2>{{title}}</h2>
-    <div>{{_('Drag to Rearrange Order')}}</div>
+    <div>{{_('क्रम पुनःव्यवस्था गर्नुहोस्')}}</div>
       <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
       <div id="sortTrue" class="list-group">
         {% for entry in entries %}
@@ -30,7 +30,7 @@
                     {% endif %}
                   {% endfor %}
               {% else %}
-                  {{_('Hidden Book')}}
+                  {{_('पुराना पुस्तक')}}
                   <br>
               {% endif %}
               </div>
@@ -38,8 +38,8 @@
           </div>
         {% endfor %}
       </div>
-        <button onclick="sendData('{{ url_for('shelf.order_shelf', shelf_id=shelf.id) }}')" class="btn btn-default" id="ChangeOrder">{{_('Save')}}</button>
-        <a href="{{ url_for('shelf.show_shelf', shelf_id=shelf.id) }}" id="shelf_back" class="btn btn-default">{{_('Back')}}</a>
+        <button onclick="sendData('{{ url_for('shelf.order_shelf', shelf_id=shelf.id) }}')" class="btn btn-default" id="ChangeOrder">{{_('सुरक्षित गर्नुहोस्')}}</button>
+        <a href="{{ url_for('shelf.show_shelf', shelf_id=shelf.id) }}" id="shelf_back" class="btn btn-default">{{_('पछाडि जानुहोस्')}}</a>
   </div>
 {% endblock %}
 

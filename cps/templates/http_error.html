@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="http-error">
   <head>
-    <title>{{ instance }} | HTTP Error ({{ error_code }})</title>
+    <title>{{ instance }} | HTTP त्रुटि ({{ error_code }})</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -31,7 +31,7 @@
   <div class="row">
     <div class="col-md-offset-4 text-left">
         {% if unconfigured %}
-            <div>{{_('Calibre-Web Instance is unconfigured, please contact your administrator')}}</div>
+            <div>{{_('कैलिबर-वेब प्रतिष्ठान असंचालित छ, कृपया आफ्नो प्रशासकसँग सम्पर्क गर्नुहोस्')}}</div>
         {% endif %}
       {% for element in error_stack %}
         <div>{{ element }}</div>
@@ -40,17 +40,17 @@
    </div>
   {% if issue %}
     <div class="row">
-    <div class="col errorlink">Please report this issue with all related information:
-        <a href="https://github.com/janeczku/calibre-web/issues/new/choose=">{{_('Create Issue')}}</a>
+    <div class="col errorlink">कृपया यस समस्याको सम्पूर्ण जानकारीसहित यसलाई सूचित गर्नुहोस्:
+        <a href="https://github.com/janeczku/calibre-web/issues/new/choose=">{{_('समस्या सिर्जना गर्नुहोस्')}}</a>
     </div>
       </div>
     {% endif %}
     <div class="row">
       <div class="col errorlink">
       {% if not unconfigured %}
-        <a href="{{url_for('web.index')}}" title="{{ _('Return to Home') }}">{{_('Return to Home')}}</a>
+        <a href="{{url_for('web.index')}}" title="{{ _('मुख्य पृष्ठमा फिर्ता जानुहोस्') }}">{{_('मुख्य पृष्ठमा फिर्ता जानुहोस्')}}</a>
       {% else %}
-        <a href="{{url_for('web.logout')}}" title="{{ _('Logout User') }}">{{ _('Logout User') }}</a>
+        <a href="{{url_for('web.logout')}}" title="{{ _('प्रयोगकर्ता लगआउट गर्नुहोस्') }}">{{ _('प्रयोगकर्ता लगआउट गर्नुहोस्') }}</a>
       {% endif %}
       </div>
     </div>

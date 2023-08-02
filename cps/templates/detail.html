@@ -17,7 +17,7 @@
                             <div class="btn-group" role="group">
                                 {% if entry.data|length < 2 %}
                                     <button id="Download" type="button" class="btn btn-primary">
-                                        {{ _('Download') }} :
+                                        {{ _('डाउनलोड') }} :
                                     </button>
                                     {% for format in entry.data %}
                                         <a href="{{ url_for('web.download_link', book_id=entry.id, book_format=format.format|lower, anyname=entry.id|string+'.'+format.format|lower) }}"
@@ -30,7 +30,7 @@
                                 {% else %}
                                     <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="glyphicon glyphicon-download"></span> {{ _('Download') }}
+                                        <span class="glyphicon glyphicon-download"></span> {{ _('डाउनलोड') }}
                                         <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
@@ -56,7 +56,7 @@
                             <div class="btn-group" role="group">
                                 <button id="sendbtn2" type="button" class="btn btn-primary dropdown-toggle"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="glyphicon glyphicon-send"></span>{{ _('Send to eReader') }}
+                                    <span class="glyphicon glyphicon-send"></span>{{ _('ई-पढ्नको लागि पठाउनुहोस्') }}
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="send-to-ereader">
@@ -74,7 +74,7 @@
                             {% if entry.reader_list|length > 1 %}
                                 <button id="read-in-browser" type="button" class="btn btn-primary dropdown-toggle"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="glyphicon glyphicon-book"></span> {{ _('Read in Browser') }}
+                                    <span class="glyphicon glyphicon-book"></span> {{ _('ब्राउजमा पढ्नुहोस्') }}
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="read-in-browser">
@@ -88,7 +88,7 @@
                                 <a target="_blank"
                                    href="{{ url_for('web.read_book', book_id=entry.id, book_format=entry.reader_list[0]) }}"
                                    id="readbtn" class="btn btn-primary" role="button"><span
-                                        class="glyphicon glyphicon-book"></span> {{ _('Read in Browser') }}
+                                        class="glyphicon glyphicon-book"></span> {{ _('ब्राउजमा पढ्नुहोस्') }}
                                     - {{ entry.reader_list[0] }}</a>
                             {% endif %}
                         </div>
@@ -97,7 +97,7 @@
                         <div class="btn-group" role="group">
                             {% if entry.audio_entries|length > 1 %}
                                 <button id="listen-in-browser" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="glyphicon glyphicon-music"></span> {{ _('Listen in Browser') }}
+                                    <span class="glyphicon glyphicon-music"></span> {{ _('ब्राउजमा सुन्नुहोस्') }}
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="listen-in-browser">
@@ -154,7 +154,7 @@
             {% if entry.languages|length > 0 %}
                 <div class="languages">
                     <p>
-                        <span class="label label-default">{{_('Language')}}: {% for language in entry. %}{{language.language_name}}{% if not loop.last %}, {% endif %}{% endfor %}</span>
+                        <span class="label label-default">{{_('Language')}}: {% for language in entry.languages %}{{language.language_name}}{% if not loop.last %}, {% endif %}{% endfor %}</span>
                     </p>
                 </div>
             {% endif %}
@@ -189,9 +189,9 @@
             {% if entry.publishers|length > 0 %}
                 <div class="publishers">
                     <p>
-				      <span>{{ _('Publishers') }}:
-				          <a href="{{ url_for('web.books_list', data='publisher', sort_param='stored', book_id=entry.publishers[0].id ) }}">{{ entry.publishers[0].name }}</a>
-				      </span>
+                      <span>{{ _('Publisher') }}:
+                          <a href="{{ url_for('web.books_list', data='publisher', sort_param='stored', book_id=entry.publishers[0].id ) }}">{{ entry.publishers[0].name }}</a>
+                      </span>
                     </p>
                 </div>
             {% endif %}
@@ -250,7 +250,7 @@
                             <input id="have_read_cb" data-checked="{{ _('Mark As Unread') }}"
                                    data-unchecked="{{ _('Mark As Read') }}" type="checkbox"
                                    {% if entry.read_status %}checked{% endif %}>
-                            <span>{{ _('Read') }}</span>
+                            <span>{{ _('पढ्नुहोस्') }}</span>
                         </label>
                     </form>
                     </p>
@@ -263,7 +263,7 @@
                                 <input id="archived_cb" data-checked="{{ _('Restore from archive') }}"
                                        data-unchecked="{{ _('Add to archive') }}" type="checkbox"
                                        {% if entry.is_archived %}checked{% endif %}>
-                                <span>{{ _('Archived') }}</span>
+                                <span>{{ _('अभिलेख राखिएको') }}</span>
                             </label>
                         </form>
                         </p>
@@ -289,7 +289,7 @@
                                 <button id="add-to-shelf" type="button"
                                         class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
-                                    <span class="glyphicon glyphicon-list"></span> {{ _('Add to shelf') }}
+                                    <span class="glyphicon glyphicon-list"></span> {{ _('शेल्फमा थप्नुहोस्') }}
                                     <span class="caret"></span>
                                 </button>
                                 <ul id="add-to-shelves" class="dropdown-menu" aria-labelledby="add-to-shelf">
@@ -318,9 +318,9 @@
                                                class="btn btn-sm btn-default" role="button"
                                                data-shelf-action="remove"
                                             >
-								              <span {% if not shelf.is_public or current_user.role_edit_shelfs() %}
-								                  class="glyphicon glyphicon-remove"
-								              {% endif %}></span> {{ shelf.name }}{% if shelf.is_public == 1 %} {{ _('(Public)') }}{% endif %}
+                                              <span {% if not shelf.is_public or current_user.role_edit_shelfs() %}
+                                                  class="glyphicon glyphicon-remove"
+                                              {% endif %}></span> {{ shelf.name }}{% if shelf.is_public == 1 %} {{ _('(Public)') }}{% endif %}
                                             </a>
                                         {% endif %}
                                     {% endfor %}
@@ -336,7 +336,7 @@
                         <div class="btn-group" role="group" aria-label="Edit/Delete book">
                             <a href="{{ url_for('edit-book.show_edit_book', book_id=entry.id) }}"
                                class="btn btn-sm btn-primary" id="edit_book" role="button"><span
-                                    class="glyphicon glyphicon-edit"></span> {{ _('Edit Metadata') }}</a>
+                                    class="glyphicon glyphicon-edit"></span> {{ _('मेटाडेटा सम्पादन गर्नुहोस्') }}</a>
                         </div>
                     </div>
                 {% endif %}
@@ -365,5 +365,7 @@
 <script type="text/javascript">
 </script>
 
-{% endblock %}
 
+
+
+{% endblock %}

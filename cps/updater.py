@@ -435,7 +435,7 @@ class Updater(threading.Thread):
                     status.update({
                         'update': False,
                         'success': True,
-                        'message': _('No update available. You already have the latest version installed')
+                        'message': _(' कुनै अद्यावधिक उपलब्ध छैन। तपाईंले पहिले नै नवीनतम संस्करण स्थापना गर्नुभएको छ')
                     })
                     return json.dumps(status)
             except (TypeError, KeyError):
@@ -547,7 +547,7 @@ class Updater(threading.Thread):
                 status.update({
                     'update': False,
                     'success': True,
-                    'message': _(u'No update available. You already have the latest version installed')
+                    'message': _(u'कुनै अद्यावधिक उपलब्ध छैन। तपाईंले पहिले नै नवीनतम संस्करण स्थापना गर्नुभएको छ')
                 })
                 return json.dumps(status)
 

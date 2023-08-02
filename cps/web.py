@@ -1224,9 +1224,9 @@ def send_to_ereader(book_id, book_format, convert):
             response = [{'type': "success", 'message': _("Success! Book queued for sending to %(eReadermail)s",
                                                        eReadermail=current_user.kindle_mail)}]
         else:
-            response = [{'type': "danger", 'message': _("Oops! There was an error sending book: %(res)s", res=result)}]
+            response = [{'type': "danger", 'message': _("उफ्! पुस्तक पठाउँदा त्रुटि भयो: %(res)s", res=result)}]
     else:
-        response = [{'type': "danger", 'message': _("Oops! Please update your profile with a valid eReader Email.")}]
+        response = [{'type': "danger", 'message': _("उफ्! कृपया मान्य eReader इमेल मार्फत आफ्नो प्रोफाइल अपडेट गर्नुहोस्।")}]
     return Response(json.dumps(response), mimetype='application/json')
 
 
@@ -1242,16 +1242,16 @@ def register_post():
     try:
         limiter.check()
     except RateLimitExceeded:
-        flash(_(u"Please wait one minute to register next user"), category="error")
+        flash(_(u"अर्को प्रयोगकर्ता दर्ता गर्न कृपया एक मिनेट पर्खनुहोस्"), category="error")
         return render_title_template('register.html', config=config, title=_("दर्ता गर्नुहोस्"), page="register")
     if current_user is not None and current_user.is_authenticated:
         return redirect(url_for('web.index'))
     if not config.get_mail_server_configured():
-        flash(_("Oops! Email server is not configured, please contact your administrator."), category="error")
+        flash(_("उफ्! इमेल सर्भर कन्फिगर गरिएको छैन, कृपया आफ्नो प्रशासकलाई सम्पर्क गर्नुहोस्।"), category="error")
         return render_title_template('register.html', title=_("दर्ता गर्नुहोस्"), page="register")
     nickname = to_save.get("email", "").strip() if config.config_register_email else to_save.get('name')
     if not nickname or not to_save.get("email"):
-        flash(_("Oops! Please complete all fields."), category="error")
+        flash(_("Oops! Please coअर्को प्रयोगकर्ता दर्ता गर्न कृपया एक मिनेट पर्खनुहोस्mplete all fields."), category="error")
         return render_title_template('register.html', title=_("दर्ता गर्नुहोस्"), page="register")
     try:
         nickname = check_username(nickname)
@@ -1354,10 +1354,10 @@ def login_post():
     if config.config_login_type == constants.LOGIN_LDAP and services.ldap and user and form['password'] != "":
         login_result, error = services.ldap.bind_user(form['username'], form['password'])
         if login_result:
-            log.debug(u"You are now logged in as: '{}'".format(user.name))
+            log.debug(u"तपाईं अब यस रूपमा लग इन हुनुहुन्छ: '{}'".format(user.name))
             return handle_login_user(user,
                                      remember_me,
-                                     _(u"you are now logged in as: '%(nickname)s'", nickname=user.name),
+                                     _(u"तपाईं अब यस रूपमा लग इन हुनुहुन्छ: '%(nickname)s'", nickname=user.name),
                                      "success")
         elif login_result is None and user and check_password_hash(str(user.password), form['password']) \
                 and user.name != "Guest":
@@ -1391,10 +1391,10 @@ def login_post():
         else:
             if user and check_password_hash(str(user.password), form['password']) and user.name != "Guest":
                 config.config_is_initial = False
-                log.debug(u"You are now logged in as: '{}'".format(user.name))
+                log.debug(u"तपाईं अब यस रूपमा लग इन हुनुहुन्छ: '{}'".format(user.name))
                 return handle_login_user(user,
                                          remember_me,
-                                         _(u"You are now logged in as: '%(nickname)s'", nickname=user.name),
+                                         _(u"तपाईं अब यस रूपमा लग इन हुनुहुन्छ: '%(nickname)s'", nickname=user.name),
                                          "success")
             else:
                 log.warning('Login failed for user "{}" IP-address: {}'.format(form['username'], ip_address))
@@ -1452,7 +1452,7 @@ def change_profile(kobo_support, local_oauth_check, oauth_status, translations, 
                                      translations=translations,
                                      profile=1,
                                      languages=languages,
-                                     title=_("%(name)s's Profile", name=current_user.name),
+                                     title=_("%(name)s's प्रोफाइलहरू", name=current_user.name),
                                      page="me",
                                      kobo_support=kobo_support,
                                      registered_oauth=local_oauth_check,
@@ -1502,7 +1502,7 @@ def profile():
                                  content=current_user,
                                  config=config,
                                  kobo_support=kobo_support,
-                                 title=_("%(name)s's Profile", name=current_user.name),
+                                 title=_("%(name)s's प्रोफाइलहरू", name=current_user.name),
                                  page="me",
                                  registered_oauth=local_oauth_check,
                                  oauth_status=oauth_status)

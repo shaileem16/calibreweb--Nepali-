@@ -134,7 +134,7 @@ def bind_oauth_or_register(provider_id, provider_user_id, redirect_url, provider
         # already bind with user, just login
         if oauth_entry.user:
             login_user(oauth_entry.user)
-            log.debug("You are now logged in as: '%s'", oauth_entry.user.name)
+            log.debug("तपाईं अब यस रूपमा लग इन हुनुहुन्छ: '%s'", oauth_entry.user.name)
             flash(_("Success! You are now logged in as: %(nickname)s", nickname= oauth_entry.user.name),
                   category="success")
             return redirect(url_for('web.index'))

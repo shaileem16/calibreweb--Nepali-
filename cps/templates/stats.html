@@ -1,37 +1,37 @@
 {% extends "layout.html" %}
 {% block body %}
-  <h3>{{_('को बारे मा')}} {{instance}}</h3>
-<p>{{instance}} powered by
-<a href="https://github.com/janeczku/calibre-web" title="Calibre-Web">क्यालिबर वेब </a>.
+  <h3>{{_('बारेमा')}} {{instance}}</h3>
+<p>{{instance}} {{_('द्वारा प्रचालित')}}
+<a href="https://github.com/janeczku/calibre-web" title="Calibre-Web">Calibre वेब</a>।
 </p>
-  <h3>{{_('Library Statistics')}}</h3>
+  <h3>{{_('पुस्तकालय सांख्यिकी')}}</h3>
 <table id="stats" class="table">
   <tbody>
     <tr>
       <th>{{bookcounter}}</th>
-      <td>{{_('Books in this Library')}}</td>
+      <td>{{_('यस पुस्तकालयमा पुस्तकहरू')}}</td>
     </tr>
     <tr>
       <th>{{authorcounter}}</th>
-      <td>{{_('Authors in this Library')}}</td>
+      <td>{{_('यस पुस्तकालयमा लेखकहरू')}}</td>
     </tr>
     <tr>
       <th>{{categorycounter}}</th>
-      <td>{{_('Categories in this Library')}}</td>
+      <td>{{_('यस पुस्तकालयमा श्रेणिहरू')}}</td>
     </tr>
     <tr>
       <th>{{seriecounter}}</th>
-      <td>{{_('Series in this Library')}}</td>
+      <td>{{_('यस पुस्तकालयमा शृंखलाहरू')}}</td>
     </tr>
   </tbody>
 </table>
 {% if current_user.role_admin() %}
-  <h3>{{_('System Statistics')}}</h3>
+  <h3>{{_('प्रणाली सांख्यिकी')}}</h3>
 <table id="libs" class="table">
   <thead>
     <tr>
-      <th>{{_('Program')}}</th>
-      <th>{{_('Installed Version')}}</th>
+      <th>{{_('कार्यक्रम')}}</th>
+      <th>{{_('स्थापित संस्करण')}}</th>
     </tr>
   </thead>
   <tbody>

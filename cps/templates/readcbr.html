@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="description" content="">
-  <title>{{_('Comic Reader')}} | {{title}}</title>
+  <title>{{_('कमिक पाठक')}} | {{title}}</title>
   <meta name="viewport" content="width=device-width, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   {% if g.google_site_verification|length > 0 %}
@@ -51,7 +51,7 @@
 <div id="main" class="main">
   <div id="titlebar" class="main">
     <div id="opener">
-      <a id="slider" class="icon-menu">Menu</a>
+      <a id="slider" class="icon-menu">{{_('मेनु')}}</a>
     </div>
     <div id="metainfo">
       <span id="book-title">{{ title | shortentitle }}</span>
@@ -59,13 +59,13 @@
       <span id="chapter-title"></span>
     </div>
     <div id="title-controls">
-      <a id="setting" class="icon-cog">Settings</a>
-      <a id="fullscreen" class="icon-resize-full">Fullscreen</a>
+      <a id="setting" class="icon-cog">{{_('सेटिङ्स')}}</a>
+      <a id="fullscreen" class="icon-resize-full">{{_('पूर्णस्क्रिन')}}</a>
     </div>
     <div id="progress" role="progressbar" class="loading">
       <div class="bar-load from-left">
         <div class="text load">
-          Loading...
+          {{_('लोड हुँदैछ...')}}
         </div>
       </div>
       <div class="bar-read from-left">
@@ -83,25 +83,25 @@
 
 <div class="modal md-effect-1" id="settings-modal">
   <div class="md-content">
-    <h3>{{_('Settings')}}</h3>
+    <h3>{{_('सेटिङ्स')}}</h3>
     <div>
       <div class="settings-column">
         <table>
           <thead>
-          <tr><th colspan="2">{{_('Keyboard Shortcuts')}}</th></tr>
+          <tr><th colspan="2">{{_('किबोर्ड संक्षेप')}}</th></tr>
           </thead>
           <tbody>
-          <tr><td id="prev_page_key">&larr;</td> <td>{{_('Previous Page')}}</td></tr>
-          <tr><td id="next_page_key">&rarr;</td> <td>{{_('Next Page')}}</td></tr>
-          <tr><td>S</td>      <td>{{_('Single Page Display')}}</td></tr>
-          <tr><td>O</td>      <td>{{_('Long Strip Display')}}</td></tr>
-          <tr><td>B</td>      <td>{{_('Scale to Best')}}</td></tr>
-          <tr><td>W</td>      <td>{{_('Scale to Width')}}</td></tr>
-          <tr><td>H</td>      <td>{{_('Scale to Height')}}</td></tr>
-          <tr><td>N</td>      <td>{{_('Scale to Native')}}</td></tr>
-          <tr><td>R</td>      <td>{{_('Rotate Right')}}</td></tr>
-          <tr><td>L</td>      <td>{{_('Rotate Left')}}</td></tr>
-          <tr><td>F</td>      <td>{{_('Flip Image')}}</td></tr>
+          <tr><td id="prev_page_key">&larr;</td> <td>{{_('अघिल्लो पृष्ठ')}}</td></tr>
+          <tr><td id="next_page_key">&rarr;</td> <td>{{_('अर्को पृष्ठ')}}</td></tr>
+          <tr><td>S</td>      <td>{{_('एकल पृष्ठ प्रदर्शन')}}</td></tr>
+          <tr><td>O</td>      <td>{{_('लम्बी पट्टी प्रदर्शन')}}</td></tr>
+          <tr><td>B</td>      <td>{{_('सर्वश्रेष्ठमा स्केल')}}</td></tr>
+          <tr><td>W</td>      <td>{{_('चौडाइमा स्केल')}}</td></tr>
+          <tr><td>H</td>      <td>{{_('उचाइमा स्केल')}}</td></tr>
+          <tr><td>N</td>      <td>{{_('स्वाभाविकमा स्केल')}}</td></tr>
+          <tr><td>R</td>      <td>{{_('दायाँमा घुमाउन')}}</td></tr>
+          <tr><td>L</td>      <td>{{_('बायाँमा घुमाउन')}}</td></tr>
+          <tr><td>F</td>      <td>{{_('चित्र फ्लिप')}}</td></tr>
           </tbody>
         </table>
       </div>
@@ -109,41 +109,41 @@
         <table id="settings">
           <thead>
           <tr>
-            <th>{{_('Settings')}}</th>
+            <th>{{_('सेटिङ्स')}}</th>
           </tr>
           </thead>
           <tbody>
           <tr>
-            <th>{{_('Theme')}}:</th>
+            <th>{{_('थिम')}}:</th>
             <td>
               <div class="inputs">
-                <label for="lightTheme"><input type="radio" id="lightTheme" name="theme" value="light" /> {{_('Light')}}</label>
-                <label for="darkTheme"><input type="radio" id="darkTheme" name="theme" value="dark" /> {{_('Dark')}}</label>
+                <label for="lightTheme"><input type="radio" id="lightTheme" name="theme" value="light" /> {{_('लाइट')}}</label>
+                <label for="darkTheme"><input type="radio" id="darkTheme" name="theme" value="dark" /> {{_('डार्क')}}</label>
               </div>
             </td>
           </tr>
           <tr>
-            <th>{{_('Display')}}:</th>
+            <th>{{_('प्रदर्शन')}}:</th>
             <td>
               <div class="inputs">
-                <label for="singlePage"><input type="radio" id="singlePage" name="pageDisplay" value="0" /> {{_('Single Page')}}</label>
-                <label for="longStrip"><input type="radio" id="longStrip" name="pageDisplay" value="1" /> {{_('Long Strip')}}</label>
+                <label for="singlePage"><input type="radio" id="singlePage" name="pageDisplay" value="0" /> {{_('एकल पृष्ठ')}}</label>
+                <label for="longStrip"><input type="radio" id="longStrip" name="pageDisplay" value="1" /> {{_('लम्बी पट्टी')}}</label>
               </div>
             </td>
           </tr>
           <tr>
-            <th>{{_('Scale')}}:</th>
+            <th>{{_('स्केल')}}:</th>
             <td>
               <div class="inputs">
-                <label for="fitBest"><input type="radio" id="fitBest" name="fitMode" value="66" /> {{_('Best')}}</label>
-                <label for="fitWidth"><input type="radio" id="fitWidth" name="fitMode" value="87" /> {{_('Width')}}</label>
-                <label for="fitHeight"><input type="radio" id="fitHeight" name="fitMode" value="72" /> {{_('Height')}}</label>
-                <label for="fitNative"><input type="radio" id="fitNative" name="fitMode" value="78" /> {{_('Native')}}</label>
+                <label for="fitBest"><input type="radio" id="fitBest" name="fitMode" value="66" /> {{_('सर्वश्रेष्ठमा')}}</label>
+                <label for="fitWidth"><input type="radio" id="fitWidth" name="fitMode" value="87" /> {{_('चौडाइमा')}}</label>
+                <label for="fitHeight"><input type="radio" id="fitHeight" name="fitMode" value="72" /> {{_('उचाइमा')}}</label>
+                <label for="fitNative"><input type="radio" id="fitNative" name="fitMode" value="78" /> {{_('स्वाभाविकमा')}}</label>
               </div>
             </td>
           </tr>
           <tr>
-            <th>{{_('Rotate')}}:</th>
+            <th>{{_('घुमाउनुहोस्')}}:</th>
             <td>
               <div class="inputs">
                 <label for="r0"><input type="radio" id="r0" name="rotateTimes" value="0" /> 0&deg;</label>
@@ -154,29 +154,29 @@
             </td>
           </tr>
           <tr>
-            <th>{{_('Flip')}}:</th>
+            <th>{{_('फ्लिप')}}:</th>
             <td>
               <div class="inputs">
-                <label for="vflip"><input type="checkbox" id="vflip" name="vflip" /> {{_('Horizontal')}}</label>
-                <label for="hflip"><input type="checkbox" id="hflip" name="hflip" /> {{_('Vertical')}}</label>
+                <label for="vflip"><input type="checkbox" id="vflip" name="vflip" /> {{_('सामान्य')}}</label>
+                <label for="hflip"><input type="checkbox" id="hflip" name="hflip" /> {{_('तलबाट माथि')}}</label>
               </div>
             </td>
           </tr>
           <tr>
-            <th>{{_('Direction')}}:</th>
+            <th>{{_('दिशा')}}:</th>
             <td>
               <div class="inputs">
-                <label for="leftToRight"><input type="radio" id="leftToRight" name="direction" value="0" /> {{_('Left to Right')}}</label>
-                <label for="rightToLeft"><input type="radio" id="rightToLeft" name="direction" value="1" /> {{_('Right to Left')}}</label>
+                <label for="leftToRight"><input type="radio" id="leftToRight" name="direction" value="0" /> {{_('बायाँबाट दायाँ')}}</label>
+                <label for="rightToLeft"><input type="radio" id="rightToLeft" name="direction" value="1" /> {{_('दायाँबाट बायाँ')}}</label>
               </div>
             </td>
           </tr>
           <tr>
-            <th>{{_('Scrollbar')}}:</th>
+            <th>{{_('स्क्रोलबार')}}:</th>
             <td>
               <div class="inputs">
-                <label for="showScrollbar"><input type="radio" id="showScrollbar" name="scrollbar" value="1" /> {{_('Show')}}</label>
-                <label for="hideScrollbar"><input type="radio" id="hideScrollbar" name="scrollbar" value="0" /> {{_('Hide')}}</label>
+                <label for="showScrollbar"><input type="radio" id="showScrollbar" name="scrollbar" value="1" /> {{_('देखाउनुहोस्')}}</label>
+                <label for="hideScrollbar"><input type="radio" id="hideScrollbar" name="scrollbar" value="0" /> {{_('लुकाउनुहोस्')}}</label>
               </div>
             </td>
           </tr>

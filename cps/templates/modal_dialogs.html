@@ -3,16 +3,16 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title hidden" id="h1">{{_('Select Allowed/Denied Tags')}}</h4>
-        <h4 class="modal-title hidden" id="h2">{{_('Select Allowed/Denied Custom Column Values')}}</h4>
-        <h4 class="modal-title hidden" id="h3">{{_('Select Allowed/Denied Tags of User')}}</h4>
-        <h4 class="modal-title hidden" id="h4">{{_('Select Allowed/Denied Custom Column Values of User')}}</h4>
+        <h4 class="modal-title hidden" id="h1">{{_('अनुमति भएका / निषेधित ट्यागहरू छनोट गर्नुहोस्')}}</h4>
+        <h4 class="modal-title hidden" id="h2">{{_('अनुमति भएका / निषेधित अनुकूल स्तम्भमा मूल्यहरू छनोट गर्नुहोस्')}}</h4>
+        <h4 class="modal-title hidden" id="h3">{{_('प्रयोगकर्ताको अनुमति भएका / निषेधित ट्यागहरू छनोट गर्नुहोस्')}}</h4>
+        <h4 class="modal-title hidden" id="h4">{{_('प्रयोगकर्ताको अनुमति भएका / निषेधित अनुकूल स्तम्भमा मूल्यहरू छनोट गर्नुहोस्')}}</h4>
       </div>
       <div class="modal-body">
           <table class="table table-no-bordered" id="restrict-elements-table" data-id-field="id" data-show-header="false" data-editable-mode="inline">
             <thead>
               <tr>
-                  <th data-field="Element" id="Element" data-escape="true" data-editable-type="text" data-editable="true" data-editable-title="{{_('Enter Tag')}}"></th>
+                  <th data-field="Element" id="Element" data-escape="true" data-editable-type="text" data-editable="true" data-editable-title="{{_('ट्याग प्रविष्ट गर्नुहोस्')}}"></th>
                   <th data-field="type" id="type" data-visible="true"></th>
                   <th data-field="id" id="id" data-visible="false"></th>
                   <th data-align="right" data-formatter="RestrictionActions"></th>
@@ -21,17 +21,17 @@
           </table>
           <form id="add_restriction" action="" method="POST">
           <div class="form-group required">
-            <label for="add_element">{{_('Add View Restriction')}}</label>
+            <label for="add_element">{{_('भिउ छनोट गर्नुहोस्')}}</label>
             <input type="text" class="form-control" name="add_element" id="add_element">
           </div>
           <div class="form-group required">
-            <input type="button" class="btn btn-default" value="{{_('Allow')}}" name="submit_allow" id="submit_allow" data-dismiss="static">
-            <input type="button" class="btn btn-default" value="{{_('Deny')}}" name="submit_deny" id="submit_restrict" data-dismiss="static">
+            <input type="button" class="btn btn-default" value="{{_('अनुमति दिनुहोस्')}}" name="submit_allow" id="submit_allow" data-dismiss="static">
+            <input type="button" class="btn btn-default" value="{{_('निषेध गर्नुहोस्')}}" name="submit_deny" id="submit_restrict" data-dismiss="static">
           </div>
           </form>
       </div>
       <div class="modal-footer">
-        <button type="button" id="restrict_close" class="btn btn-default" data-dismiss="modal">{{_('Close')}}</button>
+        <button type="button" id="restrict_close" class="btn btn-default" data-dismiss="modal">{{_('बन्द गर्नुहोस्')}}</button>
       </div>
     </div>
   </div>
@@ -43,25 +43,25 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header bg-danger text-center">
-          <span>{{_('Are you really sure?')}}</span>
+          <span>{{_('के तपाईँ साँचो छिनुहुन्छ?')}}</span>
       </div>
         <div class="modal-body text-center">
           <p>
-          <span class="hidden" id="book_format">{{_('This book format will be permanently erased from database')}}</span>
-          <span class="hidden" id="book_complete">{{_('This book will be permanently erased from database')}}</span>
-          <span>{{_('and hard disk')}}</span>
+          <span class="hidden" id="book_format">{{_('यो पुस्तक ढाँचा डाटाबेसबाट स्थायी रूपमा मेटिनेछ')}}</span>
+          <span class="hidden" id="book_complete">{{_('यो पुस्तक डाटाबेसबाट रूपमा मेटिनेछ')}}</span>
+          <span>{{_('र हार्ड डिस्कबाट पनि')}}</span>
 		  </p>
           {% if config.config_kobo_sync %}
           <p>
-            <span>{{_('Important Kobo Note: deleted books will remain on any paired Kobo device.')}}</span>
-            <span>{{_('Books must first be archived and the device synced before a book can safely be deleted.')}}</span>
+            <span>{{_('महत्वपूर्ण कोबो सुचना: मेटिएका पुस्तकहरूले जडान गरिएको कोबो यन्त्रमा बाँकी रहनेछ।')}}</span>
+            <span>{{_('पुस्तकहरू पहिले संग्रहीत गर्नुपर्छ र यन्त्र सिङ्क गर्नुपर्छ अघि बिना पुस्तक मेट्न सकिन्छ।')}}</span>
           </p>
           {% endif %}
         </div>
 
       <div class="modal-footer">
-        <input type="button" class="btn btn-danger" value="{{_('Delete')}}" name="delete_confirm" id="delete_confirm" data-dismiss="modal">
-        <button type="button" class="btn btn-default" data-dismiss="modal">{{_('Cancel')}}</button>
+        <input type="button" class="btn btn-danger" value="{{_('मेटाउनुहोस्')}}" name="delete_confirm" id="delete_confirm" data-dismiss="modal">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{_('रद्द गर्नुहोस्')}}</button>
       </div>
     </div>
   </div>
@@ -73,21 +73,21 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header bg-info text-center">
-          <span>{{_('Choose File Location')}}</span>
+          <span>{{_('फाइल स्थान चयन गर्नुहोस्')}}</span>
       </div>
         <div class="modal-body">
          <table id="file_table" class="table table-striped">
             <thead>
               <tr>
-                  <th>{{_('type')}}</th>
-                  <th>{{_('name')}}</th>
-                  <th>{{_('size')}}</th>
+                  <th>{{_('प्रकार')}}</th>
+                  <th>{{_('नाम')}}</th>
+                  <th>{{_('आकार')}}</th>
               </tr>
             </thead>
             <tbody id="tbody">
               <tr class="tr-clickable hidden" id="parent" data-type="dir" data-path="..">
                 <td><span class="glyphicon glyphicon-folder-close"></span></td>
-                <td title="{{_('Parent Directory')}}"><span class="parentdir">..</span></td>
+                <td title="{{_('मुख्य डाइरेक्ट्री')}}"><span class="parentdir">..</span></td>
                 <td></td>
               </tr>
             </tbody>
@@ -95,8 +95,8 @@
         </div>
       <div class="modal-footer">
         <div class="text-left" id="element_selected"></div>
-        <input type="button" class="btn btn-primary" data-path="" data-link=""  data-folderonly="" data-filefilter="" data-newfile="" value="{{_('Select')}}" name="file_confirm" id="file_confirm" data-dismiss="modal">
-        <button type="button" id="file_abort" class="btn btn-default" data-dismiss="modal">{{_('Cancel')}}</button>
+        <input type="button" class="btn btn-primary" data-path="" data-link=""  data-folderonly="" data-filefilter="" data-newfile="" value="{{_('चयन गर्नुहोस्')}}" name="file_confirm" id="file_confirm" data-dismiss="modal">
+        <button type="button" id="file_abort" class="btn btn-default" data-dismiss="modal">{{_('रद्द गर्नुहोस्')}}</button>
       </div>
     </div>
   </div>
@@ -113,8 +113,8 @@
       <div class="modal-body text-center">
         <span id="text-GeneralDeleteModal"></span>
           <p></p>
-        <button id="btnConfirmYes-GeneralDeleteModal" type="button" class="btn btn btn-danger">{{_('Delete')}}</button>
-        <button id="btnConfirmNo-GeneralDeleteModal" type="button" class="btn btn-default">{{_('Cancel')}}</button>
+        <button id="btnConfirmYes-GeneralDeleteModal" type="button" class="btn btn btn-danger">{{_('मेटाउनुहोस्')}}</button>
+        <button id="btnConfirmNo-GeneralDeleteModal" type="button" class="btn btn-default">{{_('रद्द गर्नुहोस्')}}</button>
       </div>
     </div>
   </div>
@@ -131,8 +131,8 @@
       <div class="modal-body text-center">
         <span id="text-GeneralChangeModal"></span>
           <p></p>
-        <button id="btnConfirmYes-GeneralChangeModal" type="button" class="btn btn btn-default">{{_('Ok')}}</button>
-        <button id="btnConfirmNo-GeneralChangeModal" type="button" class="btn btn-default">{{_('Cancel')}}</button>
+        <button id="btnConfirmYes-GeneralChangeModal" type="button" class="btn btn btn-default">{{_('ठिक छ')}}</button>
+        <button id="btnConfirmNo-GeneralChangeModal" type="button" class="btn btn-default">{{_('रद्द गर्नुहोस्')}}</button>
       </div>
     </div>
   </div>

@@ -207,7 +207,7 @@ def remove_from_shelf(shelf_id, book_id):
 @login_required
 def create_shelf():
     shelf = ub.Shelf()
-    return create_edit_shelf(shelf, page_title=_("Create a Shelf"), page="shelfcreate")
+    return create_edit_shelf(shelf, page_title=_("एउटा शेल्फ सिर्जना गर्नुहोस्"), page="shelfcreate")
 
 
 @shelf.route("/shelf/edit/<int:shelf_id>", methods=["GET", "POST"])
@@ -459,7 +459,7 @@ def render_show_shelf(shelf_type, shelf_id, page_no, sort_param):
         return render_title_template(page,
                                      entries=result,
                                      pagination=pagination,
-                                     title=_("Shelf: '%(name)s'", name=shelf.name),
+                                     title=_("शेल्फ: '%(name)s'", name=shelf.name),
                                      shelf=shelf,
                                      page="shelf")
     else:
