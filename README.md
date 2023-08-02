@@ -1,7 +1,6 @@
 # calibreweb--Nepali-# Calibre Web UI in Nepali
 
-![Calibre Web UI in Nepali]
-
+![Calibre Web UI in Nepali](calibreweb_nepali_screenshot.png)
 ## Description
 This repository contains the Nepali translation of the Calibre Web user interface (UI). Calibre Web is a web application that provides a user-friendly interface for managing and accessing e-books stored in a Calibre library.
 
