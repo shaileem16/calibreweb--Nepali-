@@ -71,7 +71,7 @@ def verify_token(token):
 
     # Token not found
     if auth_token is None:
-        flash(_("Token not found"), category="error")
+        flash(_("टोकन फेला परेन"), category="error")
         log.error("Remote Login token not found")
         return redirect(url_for('web.index'))
 
@@ -80,7 +80,7 @@ def verify_token(token):
         ub.session.delete(auth_token)
         ub.session_commit()
 
-        flash(_("Token has expired"), category="error")
+        flash(_("टोकनको म्याद सकिएको छ"), category="error")
         log.error("Remote Login token expired")
         return redirect(url_for('web.index'))
 
@@ -89,7 +89,7 @@ def verify_token(token):
     auth_token.verified = True
     ub.session_commit()
 
-    flash(_("Success! Please return to your device"), category="success")
+    flash(_("सफलता! कृपया आफ्नो यन्त्रमा फर्कनुहोस्"), category="success")
     log.debug("Remote Login token for userid %s verified", auth_token.user_id)
     return redirect(url_for('web.index'))
 
@@ -127,7 +127,7 @@ def token_verified():
 
         data['status'] = 'success'
         log.debug("Remote Login for userid %s succeeded", user.id)
-        flash(_("Success! You are now logged in as: %(nickname)s", nickname=user.name), category="success")
+        flash(_("सफलता! तपाईं अब यस रूपमा लग इन हुनुहुन्छ: %(nickname)s", nickname=user.name), category="success")
 
     response = make_response(json.dumps(data, ensure_ascii=False))
     response.headers["Content-Type"] = "application/json; charset=utf-8"

@@ -55,7 +55,7 @@ def authenticate_google_drive():
     try:
         authUrl = gdriveutils.Gauth.Instance().auth.GetAuthUrl()
     except gdriveutils.InvalidConfigError:
-        flash(_('Google Drive setup not completed, try to deactivate and activate Google Drive again'),
+        flash(_('गुगल ड्राइभ सेटअप पूरा भएन, निष्क्रिय गर्ने प्रयास गर्नुहोस् र गुगल ड्राइभ फेरि सक्रिय गर्नुहोस्'),
               category="error")
         return redirect(url_for('web.index'))
     return redirect(authUrl)
@@ -92,8 +92,8 @@ def watch_gdrive():
         except HttpError as e:
             reason=json.loads(e.content)['error']['errors'][0]
             if reason['reason'] == 'push.webhookUrlUnauthorized':
-                flash(_('Callback domain is not verified, '
-                        'please follow steps to verify domain in google developer console'), category="error")
+                flash(_('कलब्याक डोमेन प्रमाणित छैन,'
+                        'कृपया गुगल विकासकर्ता कन्सोलमा डोमेन प्रमाणित गर्न चरणहरू पालना गर्नुहोस्'), category="error")
             else:
                 flash(reason['message'], category="error")
 

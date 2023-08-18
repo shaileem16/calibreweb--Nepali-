@@ -728,7 +728,7 @@ class CalibreDB:
                 neg_content_cc_filter = true()
                 log.error("Custom Column No.{} does not exist in calibre database".format(
                     self.config.config_restricted_column))
-                flash(_("Custom Column No.%(column)d does not exist in calibre database",
+                flash(_(" अनुकूलन स्तम्भ नम्बर %(column)d क्यालिबर डाटाबेसमा अवस्थित छैन ",
                         column=self.config.config_restricted_column),
                       category="error")
 

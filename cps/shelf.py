@@ -46,13 +46,13 @@ def add_to_shelf(shelf_id, book_id):
     if shelf is None:
         log.error("Invalid shelf specified: %s", shelf_id)
         if not xhr:
-            flash(_("Invalid shelf specified"), category="error")
+            flash(_("अवैध शेल्फ निर्दिष्ट"), category="error")
             return redirect(url_for('web.index'))
-        return "Invalid shelf specified", 400
+        return "अवैध शेल्फ निर्दिष्ट", 400
 
     if not check_shelf_edit_permissions(shelf):
         if not xhr:
-            flash(_("Sorry you are not allowed to add a book to that shelf"), category="error")
+            flash(_("माफ गर्नुहोस्, तपाईंलाई त्यो शेल्फमा किताब थप्न अनुमति छैन"), category="error")
             return redirect(url_for('web.index'))
         return "Sorry you are not allowed to add a book to the that shelf", 403
 
@@ -61,9 +61,9 @@ def add_to_shelf(shelf_id, book_id):
     if book_in_shelf:
         log.error("Book %s is already part of %s", book_id, shelf)
         if not xhr:
-            flash(_("Book is already part of the shelf: %(shelfname)s", shelfname=shelf.name), category="error")
+            flash(_("पुस्तक पहिले नै शेल्फको अंश हो: %(shelfname)s", shelfname=shelf.name), category="error")
             return redirect(url_for('web.index'))
-        return "Book is already part of the shelf: %s" % shelf.name, 400
+        return "पुस्तक पहिले नै शेल्फको अंश हो: %s" % shelf.name, 400
 
     maxOrder = ub.session.query(func.max(ub.BookShelf.order)).filter(ub.BookShelf.shelf == shelf_id).first()
     if maxOrder[0] is None:
@@ -79,14 +79,14 @@ def add_to_shelf(shelf_id, book_id):
     except (OperationalError, InvalidRequestError) as e:
         ub.session.rollback()
         log.error_or_exception("Settings Database error: {}".format(e))
-        flash(_("Oops! Database Error: %(error)s.", error=e.orig), category="error")
+        flash(_("उफ्! डाटाबेस त्रुटि: %(error)s.", error=e.orig), category="error")
         if "HTTP_REFERER" in request.environ:
             return redirect(request.environ["HTTP_REFERER"])
         else:
             return redirect(url_for('web.index'))
     if not xhr:
         log.debug("Book has been added to shelf: {}".format(shelf.name))
-        flash(_("Book has been added to shelf: %(sname)s", sname=shelf.name), category="success")
+        flash(_("पुस्तक शेल्फमा थपिएको छ: %(sname)s", sname=shelf.name), category="success")
         if "HTTP_REFERER" in request.environ:
             return redirect(request.environ["HTTP_REFERER"])
         else:
@@ -100,12 +100,12 @@ def search_to_shelf(shelf_id):
     shelf = ub.session.query(ub.Shelf).filter(ub.Shelf.id == shelf_id).first()
     if shelf is None:
         log.error("Invalid shelf specified: {}".format(shelf_id))
-        flash(_("Invalid shelf specified"), category="error")
+        flash(_("अवैध शेल्फ निर्दिष्ट"), category="error")
         return redirect(url_for('web.index'))
 
     if not check_shelf_edit_permissions(shelf):
         log.warning("You are not allowed to add a book to the shelf".format(shelf.name))
-        flash(_("You are not allowed to add a book to the shelf"), category="error")
+        flash(_("तपाईंलाई शेल्फमा किताब थप्न अनुमति छैन"), category="error")
         return redirect(url_for('web.index'))
 
     if current_user.id in ub.searched_ids and ub.searched_ids[current_user.id]:
@@ -123,7 +123,7 @@ def search_to_shelf(shelf_id):
 
         if not books_for_shelf:
             log.error("Books are already part of {}".format(shelf.name))
-            flash(_("Books are already part of the shelf: %(name)s", name=shelf.name), category="error")
+            flash(_("पुस्तकहरू पहिल्यै सेल्फको अंश हुन्: %(name)s", name=shelf.name), category="error")
             return redirect(url_for('web.index'))
 
         maxOrder = ub.session.query(func.max(ub.BookShelf.order)).filter(ub.BookShelf.shelf == shelf_id).first()[0] or 0
@@ -135,14 +135,14 @@ def search_to_shelf(shelf_id):
         try:
             ub.session.merge(shelf)
             ub.session.commit()
-            flash(_("Books have been added to shelf: %(sname)s", sname=shelf.name), category="success")
+            flash(_("पुस्तकहरू शेल्फमा थपिएका छन्: %(sname)s", sname=shelf.name), category="success")
         except (OperationalError, InvalidRequestError) as e:
             ub.session.rollback()
             log.error_or_exception("Settings Database error: {}".format(e))
-            flash(_("Oops! Database Error: %(error)s.", error=e.orig), category="error")
+            flash(_("उफ्! डाटाबेस त्रुटि: %(error)s.", error=e.orig), category="error")
     else:
-        log.error("Could not add books to shelf: {}".format(shelf.name))
-        flash(_("Could not add books to shelf: %(sname)s", sname=shelf.name), category="error")
+        log.error("शेल्फमा पुस्तकहरू थप्न सकिएन: {}".format(shelf.name))
+        flash(_("शेल्फमा पुस्तकहरू थप्न सकिएन: %(sname)s", sname=shelf.name), category="error")
     return redirect(url_for('web.index'))
 
 
@@ -155,7 +155,7 @@ def remove_from_shelf(shelf_id, book_id):
         log.error("Invalid shelf specified: {}".format(shelf_id))
         if not xhr:
             return redirect(url_for('web.index'))
-        return "Invalid shelf specified", 400
+        return "अवैध शेल्फ निर्दिष्ट", 400
 
     # if shelf is public and use is allowed to edit shelfs, or if shelf is private and user is owner
     # allow editing shelfs
@@ -182,13 +182,13 @@ def remove_from_shelf(shelf_id, book_id):
         except (OperationalError, InvalidRequestError) as e:
             ub.session.rollback()
             log.error_or_exception("Settings Database error: {}".format(e))
-            flash(_("Oops! Database Error: %(error)s.", error=e.orig), category="error")
+            flash(_("उफ्! डाटाबेस त्रुटि: %(error)s.", error=e.orig), category="error")
             if "HTTP_REFERER" in request.environ:
                 return redirect(request.environ["HTTP_REFERER"])
             else:
                 return redirect(url_for('web.index'))
         if not xhr:
-            flash(_("Book has been removed from shelf: %(sname)s", sname=shelf.name), category="success")
+            flash(_("पुस्तक शेल्फबाट हटाइयो: %(sname)s", sname=shelf.name), category="success")
             if "HTTP_REFERER" in request.environ:
                 return redirect(request.environ["HTTP_REFERER"])
             else:
@@ -197,7 +197,7 @@ def remove_from_shelf(shelf_id, book_id):
     else:
         if not xhr:
             log.warning("You are not allowed to remove a book from shelf: {}".format(shelf.name))
-            flash(_("Sorry you are not allowed to remove a book from this shelf"),
+            flash(_("माफ गर्नुहोस् तपाईलाई यो शेल्फबाट पुस्तक हटाउन अनुमति छैन"),
                   category="error")
             return redirect(url_for('web.index'))
         return "Sorry you are not allowed to remove a book from this shelf", 403
@@ -215,7 +215,7 @@ def create_shelf():
 def edit_shelf(shelf_id):
     shelf = ub.session.query(ub.Shelf).filter(ub.Shelf.id == shelf_id).first()
     if not check_shelf_edit_permissions(shelf):
-        flash(_("Sorry you are not allowed to edit this shelf"), category="error")
+        flash(_("माफ गर्नुहोस् तपाईंलाई यो शेल्फ सम्पादन गर्न अनुमति छैन"), category="error")
         return redirect(url_for('web.index'))
     return create_edit_shelf(shelf, page_title=_("Edit a shelf"), page="shelfedit", shelf_id=shelf_id)
 
@@ -226,13 +226,13 @@ def delete_shelf(shelf_id):
     cur_shelf = ub.session.query(ub.Shelf).filter(ub.Shelf.id == shelf_id).first()
     try:
         if not delete_shelf_helper(cur_shelf):
-            flash(_("Error deleting Shelf"), category="error")
+            flash(_("शेल्फ मेटाउँदा त्रुटि भयो"), category="error")
         else:
-            flash(_("Shelf successfully deleted"), category="success")
+            flash(_("शेल्फ सफलतापूर्वक मेटाइयो"), category="success")
     except InvalidRequestError as e:
         ub.session.rollback()
         log.error_or_exception("Settings Database error: {}".format(e))
-        flash(_("Oops! Database Error: %(error)s.", error=e.orig), category="error")
+        flash(_("उफ्! डाटाबेस त्रुटि: %(error)s.", error=e.orig), category="error")
     return redirect(url_for('web.index'))
 
 
@@ -269,7 +269,7 @@ def order_shelf(shelf_id):
             except (OperationalError, InvalidRequestError) as e:
                 ub.session.rollback()
                 log.error_or_exception("Settings Database error: {}".format(e))
-                flash(_("Oops! Database Error: %(error)s.", error=e.orig), category="error")
+                flash(_("उफ्! डाटाबेस त्रुटि: %(error)s.", error=e.orig), category="error")
 
         result = list()
         if shelf:
@@ -310,7 +310,7 @@ def create_edit_shelf(shelf, page_title, page, shelf_id=False):
     if request.method == "POST":
         to_save = request.form.to_dict()
         if not current_user.role_edit_shelfs() and to_save.get("is_public") == "on":
-            flash(_("Sorry you are not allowed to create a public shelf"), category="error")
+            flash(_("माफ गर्नुहोस्, तपाईंलाई सार्वजनिक शेल्फ सिर्जना गर्न अनुमति छैन"), category="error")
             return redirect(url_for('web.index'))
         is_public = 1 if to_save.get("is_public") == "on" else 0
         if config.config_kobo_sync:
@@ -327,10 +327,10 @@ def create_edit_shelf(shelf, page_title, page, shelf_id=False):
                 shelf.user_id = int(current_user.id)
                 ub.session.add(shelf)
                 shelf_action = "created"
-                flash_text = _("Shelf %(title)s created", title=shelf_title)
+                flash_text = _("शेल्फ %(title)s  को सिर्जना ", title=shelf_title)
             else:
                 shelf_action = "changed"
-                flash_text = _("Shelf %(title)s changed", title=shelf_title)
+                flash_text = _("शेल्फ %(title)s परिवर्तन भयो", title=shelf_title)
             try:
                 ub.session.commit()
                 log.info("Shelf {} {}".format(shelf_title, shelf_action))
@@ -340,11 +340,11 @@ def create_edit_shelf(shelf, page_title, page, shelf_id=False):
                 ub.session.rollback()
                 log.error_or_exception(ex)
                 log.error_or_exception("Settings Database error: {}".format(ex))
-                flash(_("Oops! Database Error: %(error)s.", error=ex.orig), category="error")
+                flash(_("उफ्! डाटाबेस त्रुटि: %(error)s.", error=ex.orig), category="error")
             except Exception as ex:
                 ub.session.rollback()
                 log.error_or_exception(ex)
-                flash(_("There was an error"), category="error")
+                flash(_("एउटा त्रुटि थियो"), category="error")
     return render_title_template('shelf_edit.html',
                                  shelf=shelf,
                                  title=page_title,
@@ -366,7 +366,7 @@ def check_shelf_is_unique(title, is_public, shelf_id=False):
 
         if not is_shelf_name_unique:
             log.error("A public shelf with the name '{}' already exists.".format(title))
-            flash(_("A public shelf with the name '%(title)s' already exists.", title=title),
+            flash(_("'%(title)s' नामको सार्वजनिक शेल्फ पहिले नै अवस्थित छ।", title=title),
                   category="error")
     else:
         is_shelf_name_unique = ub.session.query(ub.Shelf) \
@@ -377,7 +377,7 @@ def check_shelf_is_unique(title, is_public, shelf_id=False):
 
         if not is_shelf_name_unique:
             log.error("A private shelf with the name '{}' already exists.".format(title))
-            flash(_("A private shelf with the name '%(title)s' already exists.", title=title),
+            flash(_("'%(title)s' नामको निजी शेल्फ पहिले नै अवस्थित छ।", title=title),
                   category="error")
     return is_shelf_name_unique
 
@@ -454,7 +454,7 @@ def render_show_shelf(shelf_type, shelf_id, page_no, sort_param):
             except (OperationalError, InvalidRequestError) as e:
                 ub.session.rollback()
                 log.error_or_exception("Settings Database error: {}".format(e))
-                flash(_("Oops! Database Error: %(error)s.", error=e.orig), category="error")
+                flash(_("उफ्! डाटाबेस त्रुटि: %(error)s.", error=e.orig), category="error")
 
         return render_title_template(page,
                                      entries=result,
@@ -463,5 +463,5 @@ def render_show_shelf(shelf_type, shelf_id, page_no, sort_param):
                                      shelf=shelf,
                                      page="shelf")
     else:
-        flash(_("Error opening shelf. Shelf does not exist or is not accessible"), category="error")
+        flash(_("सेल्फ खोल्दा त्रुटि भयो। शेल्फ अवस्थित छैन वा पहुँचयोग्य छैन"), category="error")
         return redirect(url_for("web.index"))

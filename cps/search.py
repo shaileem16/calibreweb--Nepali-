@@ -135,7 +135,7 @@ def adv_search_read_status(read_status):
                 db_filter = coalesce(db.cc_classes[config.config_read_column].value, False) != True
         except (KeyError, AttributeError, IndexError):
             log.error("Custom Column No.{} does not exist in calibre database".format(config.config_read_column))
-            flash(_("Custom Column No.%(column)d does not exist in calibre database",
+            flash(_("अनुकूलन स्तम्भ नम्बर  %(column)d क्यालिबर डाटाबेसमा अवस्थित छैन ",
                     column=config.config_read_column),
                   category="error")
             return true()
@@ -321,7 +321,7 @@ def render_adv_search_results(term, offset=None, order=None, limit=None):
             q = adv_search_custom_columns(cc, term, q)
         except AttributeError as ex:
             log.debug_or_exception(ex)
-            flash(_("Error on search for custom columns, please restart Calibre-Web"), category="error")
+            flash(_("अनुकूलन स्तम्भहरूको खोजीमा त्रुटि, कृपया क्यालिब्रे-वेब पुन: सुरु गर्नुहोस्"), category="error")
 
     q = q.order_by(*sort).all()
     flask_session['query'] = json.dumps(term)

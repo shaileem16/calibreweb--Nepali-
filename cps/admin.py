@@ -600,34 +600,34 @@ def update_view_configuration():
 def load_dialogtexts(element_id):
     texts = {"header": "", "main": "", "valid": 1}
     if element_id == "config_delete_kobo_token":
-        texts["main"] = _('Do you really want to delete the Kobo Token?')
+        texts["main"] = _('के तपाई साँच्चै कोबो टोकन मेटाउन चाहनुहुन्छ?')
     elif element_id == "btndeletedomain":
-        texts["main"] = _('Do you really want to delete this domain?')
+        texts["main"] = _('के तपाई साँच्चै यो डोमेन मेटाउन चाहनुहुन्छ?')
     elif element_id == "btndeluser":
-        texts["main"] = _('Do you really want to delete this user?')
+        texts["main"] = _('के तपाई साँच्चै यो प्रयोगकर्ता मेटाउन चाहनुहुन्छ?')
     elif element_id == "delete_shelf":
-        texts["main"] = _('Are you sure you want to delete this shelf?')
+        texts["main"] = _('के तपाइँ यो शेल्फ मेटाउन निश्चित हुनुहुन्छ?')
     elif element_id == "select_locale":
-        texts["main"] = _('Are you sure you want to change locales of selected user(s)?')
+        texts["main"] = _('के तपाइँ निश्चित प्रयोगकर्ता (हरू) को स्थान परिवर्तन गर्न चाहनुहुन्छ?')
     elif element_id == "select_default_language":
-        texts["main"] = _('Are you sure you want to change visible book languages for selected user(s)?')
+        texts["main"] = _('के तपाइँ निश्चित प्रयोगकर्ता (हरू) को लागि दृश्यात्मक पुस्तक भाषाहरू परिवर्तन गर्न चाहनुहुन्छ?')
     elif element_id == "role":
-        texts["main"] = _('Are you sure you want to change the selected role for the selected user(s)?')
+        texts["main"] = _('के तपाइँ निश्चित प्रयोगकर्ता (हरू) को लागि चयन गरिएको भूमिका परिवर्तन गर्न चाहनुहुन्छ?')
     elif element_id == "restrictions":
-        texts["main"] = _('Are you sure you want to change the selected restrictions for the selected user(s)?')
+        texts["main"] = _('के तपाइँ निश्चित प्रयोगकर्ता (हरू) को लागि चयन गरिएका प्रतिबन्धहरू परिवर्तन गर्न चाहनुहुन्छ?')
     elif element_id == "sidebar_view":
-        texts["main"] = _('Are you sure you want to change the selected visibility restrictions '
-                          'for the selected user(s)?')
+        texts["main"] = _('के तपाइँ निश्चित रूपमा चयन गरिएको दृश्यता प्रतिबन्धहरू परिवर्तन गर्न चाहनुहुन्छ '
+                          'चयन गरिएको प्रयोगकर्ता(हरू) को लागि?')
     elif element_id == "kobo_only_shelves_sync":
-        texts["main"] = _('Are you sure you want to change shelf sync behavior for the selected user(s)?')
+        texts["main"] = _('के तपाइँ निश्चित प्रयोगकर्ता (हरू) को लागि शेल्फ सिंक व्यवहार परिवर्तन गर्न चाहनुहुन्छ?')
     elif element_id == "db_submit":
-        texts["main"] = _('Are you sure you want to change Calibre library location?')
+        texts["main"] = _('तपाईं क्यालिबर पुस्तकालय स्थान परिवर्तन गर्न निश्चित हुनुहुन्छ?')
     elif element_id == "admin_refresh_cover_cache":
-        texts["main"] = _('Calibre-Web will search for updated Covers '
+        texts["main"] = _('Calibre-Web अपडेट गरिएका कभरहरू खोज्नेछ '
                           'and update Cover Thumbnails, this may take a while?')
     elif element_id == "btnfullsync":
-        texts["main"] = _("Are you sure you want delete Calibre-Web's sync database "
-                          "to force a full sync with your Kobo Reader?")
+        texts["main"] = _("के तपाइँ निश्चित हुनुहुन्छ कि तपाइँ क्यालिब्रे-वेबको सिङ्क डाटाबेस मेटाउन चाहनुहुन्छ "
+                          "तपाईँको कोबो रिडरसँग पूर्ण सिङ्क बल गर्न?")
     return json.dumps(texts)
 
 
@@ -1882,7 +1882,7 @@ def _handle_new_user(to_save, content, languages, translations, kobo_support):
     try:
         if not to_save["name"] or not to_save["email"] or not to_save["password"]:
             log.info("Missing entries on new user")
-            raise Exception(_("Oops! Please complete all fields."))
+            raise Exception(_("उफ्! कृपया सबै क्षेत्रहरू पूरा गर्नुहोस्।"))
         content.password = generate_password_hash(helper.valid_password(to_save.get("password", "")))
         content.email = check_email(to_save["email"])
         # Query username, if not existing, change
@@ -1908,7 +1908,7 @@ def _handle_new_user(to_save, content, languages, translations, kobo_support):
         content.kobo_only_shelves_sync = to_save.get("kobo_only_shelves_sync", 0) == "on"
         ub.session.add(content)
         ub.session.commit()
-        flash(_("User '%(user)s' created", user=content.name), category="success")
+        flash(_("प्रयोगकर्ता '%(user)s' सिर्जना गरियो", user=content.name), category="success")
         log.debug("User {} created".format(content.name))
         return redirect(url_for('admin.admin'))
     except IntegrityError:
@@ -2031,7 +2031,7 @@ def _handle_edit_user(to_save, content, languages, translations, kobo_support):
                                          page="edituser")
     try:
         ub.session_commit()
-        flash(_("User '%(nick)s' updated", nick=content.name), category="success")
+        flash(_("प्रयोगकर्ता '%(nick)s' अद्यावधिक गरियो", nick=content.name), category="success")
     except IntegrityError as ex:
         ub.session.rollback()
         log.error("प्रयोगकर्ता परिवर्तन गर्दा अज्ञात त्रुटि भयो: {}".format(str(ex)))

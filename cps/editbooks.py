@@ -107,7 +107,7 @@ def edit_book(book_id):
     book = calibre_db.get_filtered_book(book_id, allow_show_archived=True)
     # Book not found
     if not book:
-        flash(_("Oops! Selected book is unavailable. File does not exist or is not accessible"),
+        flash(_("उफ्! चयन गरिएको पुस्तक उपलब्ध छैन। फाइल अवस्थित छैन वा पहुँचयोग्य छैन"),
               category="error")
         return redirect(url_for("web.index"))
 
@@ -151,7 +151,7 @@ def edit_book(book_id):
         if to_save.get("cover_url", None):
             if not current_user.role_upload():
                 edit_error = True
-                flash(_("User has no rights to upload cover"), category="error")
+                flash(_("प्रयोगकर्तासँग कभर अपलोड गर्ने अधिकार छैन"), category="error")
             if to_save["cover_url"].endswith('/static/generic_cover.jpg'):
                 book.has_cover = 0
             else:
@@ -171,7 +171,7 @@ def edit_book(book_id):
         input_identifiers = identifier_list(to_save, book)
         modification, warning = modify_identifiers(input_identifiers, book.identifiers, calibre_db.session)
         if warning:
-            flash(_("Identifiers are not Case Sensitive, Overwriting Old Identifier"), category="warning")
+            flash(_("पहिचानकर्ता केस सेन्सेटिभ होइनन्, पुरानो पहिचानकर्तालाई ओभरराइट गर्दै"), category="warning")
         modify_date |= modification
         # Handle book tags
         modify_date |= edit_book_tags(to_save['tags'], book)
@@ -213,7 +213,7 @@ def edit_book(book_id):
             and edit_error is not True \
                 and title_author_error is not True \
                 and cover_upload_success is not False:
-            flash(_("Metadata successfully updated"), category="success")
+            flash(_("मेटाडेटा सफलतापूर्वक अद्यावधिक गरियो"), category="success")
         if "detail_view" in to_save:
             return redirect(url_for('web.show_book', book_id=book.id))
         else:
@@ -226,12 +226,12 @@ def edit_book(book_id):
     except (OperationalError, IntegrityError, StaleDataError, InterfaceError) as e:
         log.error_or_exception("Database error: {}".format(e))
         calibre_db.session.rollback()
-        flash(_("Oops! Database Error: %(error)s.", error=e.orig if hasattr(e, "orig") else e), category="error")
+        flash(_("उफ्! डाटाबेस त्रुटि: %(error)s.", error=e.orig if hasattr(e, "orig") else e), category="error")
         return redirect(url_for('web.show_book', book_id=book.id))
     except Exception as ex:
         log.error_or_exception(ex)
         calibre_db.session.rollback()
-        flash(_("Error editing book: {}".format(ex)), category="error")
+        flash(_("पुस्तक सम्पादन गर्दा त्रुटि: {}".format(ex)), category="error")
         return redirect(url_for('web.show_book', book_id=book.id))
 
 
@@ -302,7 +302,7 @@ def upload():
             except (OperationalError, IntegrityError, StaleDataError) as e:
                 calibre_db.session.rollback()
                 log.error_or_exception("Database error: {}".format(e))
-                flash(_("Oops! Database Error: %(error)s.", error=e.orig if hasattr(e, "orig") else e),
+                flash(_("उफ्! डाटाबेस त्रुटि: %(error)s.", error=e.orig if hasattr(e, "orig") else e),
                       category="error")
         return Response(json.dumps({"location": url_for("web.index")}), mimetype='application/json')
 
@@ -316,7 +316,7 @@ def convert_bookformat(book_id):
     book_format_to = request.form.get('book_format_to', None)
 
     if (book_format_from is None) or (book_format_to is None):
-        flash(_("Source or destination format for conversion missing"), category="error")
+        flash(_("रूपान्तरणको लागि स्रोत वा गन्तव्य ढाँचा छुटेको छ"), category="error")
         return redirect(url_for('edit-book.show_edit_book', book_id=book_id))
 
     log.info('converting: book id: %s from: %s to: %s', book_id, book_format_from, book_format_to)
@@ -324,11 +324,11 @@ def convert_bookformat(book_id):
                                      book_format_to.upper(), current_user.name)
 
     if rtn is None:
-        flash(_("Book successfully queued for converting to %(book_format)s",
+        flash(_("पुस्तक रूपान्तरणको लागि सफलतापूर्वक लामबद्ध भयो %(book_format)s",
                 book_format=book_format_to),
               category="success")
     else:
-        flash(_("There was an error converting this book: %(res)s", res=rtn), category="error")
+        flash(_("यो पुस्तक रूपान्तरण गर्दा एउटा त्रुटि भयो: %(res)s", res=rtn), category="error")
     return redirect(url_for('edit-book.show_edit_book', book_id=book_id))
 
 
@@ -633,7 +633,7 @@ def prepare_authors_on_upload(title, authr):
         entry = calibre_db.check_exists_book(authr, title)
         if entry:
             log.info("Uploaded book probably exists in library")
-            flash(_("Uploaded book probably exists in the library, consider to change before upload new: ")
+            flash(_("अपलोड गरिएको पुस्तक सम्भवतः पुस्तकालयमा अवस्थित छ, नयाँ अपलोड गर्नु अघि परिवर्तन गर्न विचार गर्नुहोस् ")
                   + Markup(render_title_template('book_exists_flash.html', entry=entry)), category="warning")
 
     input_authors, renamed = prepare_authors(authr)
@@ -688,7 +688,7 @@ def create_book_on_upload(modify_date, meta):
     modify_date |= edit_book_languages(meta.languages, db_book, upload_mode=True, invalid=invalid)
     if invalid:
         for lang in invalid:
-            flash(_("'%(langname)s' is not a valid language", langname=lang), category="warning")
+            flash(_("'%(langname)s' मान्य भाषा होइन", langname=lang), category="warning")
 
     # handle tags
     modify_date |= edit_book_tags(meta.tags, db_book)
@@ -714,7 +714,7 @@ def create_book_on_upload(modify_date, meta):
         identifier_list.append(db.Identifiers(type_value, type_key, db_book.id))
     modification, warning = modify_identifiers(identifier_list, db_book.identifiers, calibre_db.session)
     if warning:
-        flash(_("Identifiers are not Case Sensitive, Overwriting Old Identifier"), category="warning")
+        flash(_("पहिचानकर्ता केस सेन्सेटिभ होइनन्, पुरानो पहिचानकर्तालाई ओभरराइट गर्दै"), category="warning")
     modify_date |= modification
 
     return db_book, input_authors, title_dir, renamed_authors
@@ -726,19 +726,19 @@ def file_handling_on_upload(requested_file):
         file_ext = requested_file.filename.rsplit('.', 1)[-1].lower()
         if file_ext not in constants.EXTENSIONS_UPLOAD and '' not in constants.EXTENSIONS_UPLOAD:
             flash(
-                _("File extension '%(ext)s' is not allowed to be uploaded to this server",
+                _("फाइल एक्सटेन्सन '%(ext)s' लाई यो सर्भरमा अपलोड गर्न अनुमति छैन",
                   ext=file_ext), category="error")
             return None, Response(json.dumps({"location": url_for("web.index")}), mimetype='application/json')
     else:
-        flash(_('File to be uploaded must have an extension'), category="error")
+        flash(_('अपलोड गर्नको लागि फाइलमा एक्स्टेन्सन हुनुपर्छ'), category="error")
         return None, Response(json.dumps({"location": url_for("web.index")}), mimetype='application/json')
 
     # extract metadata from file
     try:
         meta = uploader.upload(requested_file, config.config_rarfile_location)
     except (IOError, OSError):
-        log.error("File %s could not saved to temp dir", requested_file.filename)
-        flash(_("File %(filename)s could not saved to temp dir",
+        log.error("फाइल %s temp dir मा बचत गर्न सकिएन", requested_file.filename)
+        flash(_("फाइल %(filename)s temp dir मा बचत गर्न सकिएन",
                 filename=requested_file.filename), category="error")
         return None, Response(json.dumps({"location": url_for("web.index")}), mimetype='application/json')
     return meta, None
@@ -757,8 +757,8 @@ def move_coverfile(meta, db_book):
         if meta.cover:
             os.unlink(meta.cover)
     except OSError as e:
-        log.error("Failed to move cover file %s: %s", new_cover_path, e)
-        flash(_("Failed to Move Cover File %(file)s: %(error)s", file=new_cover_path,
+        log.error("आवरण फाइल सार्न असफल भयो %s: %s", new_cover_path, e)
+        flash(_("आवरण फाइल सार्न असफल भयो %(file)s: %(error)s", file=new_cover_path,
                 error=e),
               category="error")
 
@@ -815,18 +815,18 @@ def render_delete_book_result(book_format, json_response, warning, book_id):
             return json.dumps([warning, {"location": url_for("edit-book.show_edit_book", book_id=book_id),
                                          "type": "success",
                                          "format": book_format,
-                                         "message": _('Book Format Successfully Deleted')}])
+                                         "message": _('पुस्तक ढाँचा सफलतापूर्वक मेटाइयो')}])
         else:
-            flash(_('Book Format Successfully Deleted'), category="success")
+            flash(_('पुस्तक ढाँचा सफलतापूर्वक मेटाइयो'), category="success")
             return redirect(url_for('edit-book.show_edit_book', book_id=book_id))
     else:
         if json_response:
             return json.dumps([warning, {"location": url_for('web.index'),
                                          "type": "success",
                                          "format": book_format,
-                                         "message": _('Book Successfully Deleted')}])
+                                         "message": _('पुस्तक सफलतापूर्वक मेटियो')}])
         else:
-            flash(_('Book Successfully Deleted'), category="success")
+            flash(_('पुस्तक सफलतापूर्वक मेटियो'), category="success")
             return redirect(url_for('web.index'))
 
 
@@ -893,7 +893,7 @@ def render_edit_book(book_id):
     cc = calibre_db.session.query(db.CustomColumns).filter(db.CustomColumns.datatype.notin_(db.cc_exceptions)).all()
     book = calibre_db.get_filtered_book(book_id, allow_show_archived=True)
     if not book:
-        flash(_("Oops! Selected book is unavailable. File does not exist or is not accessible"),
+        flash(_("उफ्! चयन गरिएको पुस्तक उपलब्ध छैन। फाइल अवस्थित छैन वा पहुँचयोग्य छैन"),
               category="error")
         return redirect(url_for("web.index"))
 
@@ -977,7 +977,7 @@ def edit_book_series_index(series_index, book):
     modify_date = False
     series_index = series_index or '1'
     if not series_index.replace('.', '', 1).isdigit():
-        flash(_("%(seriesindex)s is not a valid number, skipping", seriesindex=series_index), category="warning")
+        flash(_("%(seriesindex)s मान्य संख्या होइन, स्किप गर्दै", seriesindex=series_index), category="warning")
         return False
     if str(book.series_index) != series_index:
         book.series_index = series_index
@@ -1156,7 +1156,7 @@ def upload_single_file(file_request, book, book_id):
         # check for empty request
         if requested_file.filename != '':
             if not current_user.role_upload():
-                flash(_("User has no rights to upload additional file formats"), category="error")
+                flash(_("प्रयोगकर्तासँग अतिरिक्त फाइल ढाँचाहरू अपलोड गर्ने अधिकार छैन"), category="error")
                 return False
             if '.' in requested_file.filename:
                 file_ext = requested_file.filename.rsplit('.', 1)[-1].lower()
@@ -1165,7 +1165,7 @@ def upload_single_file(file_request, book, book_id):
                           category="error")
                     return False
             else:
-                flash(_('File to be uploaded must have an extension'), category="error")
+                flash(_('अपलोड गर्नको लागि फाइलमा एक्स्टेन्सन हुनुपर्छ'), category="error")
                 return False
 
             file_name = book.path.rsplit('/', 1)[-1]
@@ -1177,12 +1177,12 @@ def upload_single_file(file_request, book, book_id):
                 try:
                     os.makedirs(filepath)
                 except OSError:
-                    flash(_("Failed to create path %(path)s (Permission denied).", path=filepath), category="error")
+                    flash(_("मार्ग सिर्जना गर्न असफल भयो %(path)s (Permission denied).", path=filepath), category="error")
                     return False
             try:
                 requested_file.save(saved_filename)
             except OSError:
-                flash(_("Failed to store file %(file)s.", file=saved_filename), category="error")
+                flash(_("फाइल भण्डारण गर्न असफल भयो %(file)s.", file=saved_filename), category="error")
                 return False
 
             file_size = os.path.getsize(saved_filename)
@@ -1200,7 +1200,7 @@ def upload_single_file(file_request, book, book_id):
                 except (OperationalError, IntegrityError, StaleDataError) as e:
                     calibre_db.session.rollback()
                     log.error_or_exception("Database error: {}".format(e))
-                    flash(_("Oops! Database Error: %(error)s.", error=e.orig if hasattr(e, "orig") else e),
+                    flash(_("उफ्! डाटाबेस त्रुटि: %(error)s.", error=e.orig if hasattr(e, "orig") else e),
                           category="error")
                     return False  # return redirect(url_for('web.show_book', book_id=book.id))
 
@@ -1221,7 +1221,7 @@ def upload_cover(cover_request, book):
         # check for empty request
         if requested_file.filename != '':
             if not current_user.role_upload():
-                flash(_("User has no rights to upload cover"), category="error")
+                flash(_("प्रयोगकर्तासँग कभर अपलोड गर्ने अधिकार छैन"), category="error")
                 return False
             ret, message = helper.save_cover(requested_file, book.path)
             if ret is True:

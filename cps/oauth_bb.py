@@ -74,7 +74,7 @@ def register_user_with_oauth(user=None):
     if len(all_oauth.keys()) == 0:
         return
     if user is None:
-        flash(_("Register with %(provider)s", provider=", ".join(list(all_oauth.values()))), category="success")
+        flash(_("%(provider)s सँग दर्ता गर्नुहोस्", provider=", ".join(list(all_oauth.values()))), category="success")
     else:
         for oauth_key in all_oauth.keys():
             # Find this OAuth token in the database, or create it
@@ -135,7 +135,7 @@ def bind_oauth_or_register(provider_id, provider_user_id, redirect_url, provider
         if oauth_entry.user:
             login_user(oauth_entry.user)
             log.debug("तपाईं अब यस रूपमा लग इन हुनुहुन्छ: '%s'", oauth_entry.user.name)
-            flash(_("Success! You are now logged in as: %(nickname)s", nickname= oauth_entry.user.name),
+            flash(_("सफलता! तपाईं अब %(nickname)s को रूपमा लग इन हुनुहुन्छ ", nickname= oauth_entry.user.name),
                   category="success")
             return redirect(url_for('web.index'))
         else:
@@ -152,7 +152,7 @@ def bind_oauth_or_register(provider_id, provider_user_id, redirect_url, provider
                     log.error_or_exception(ex)
                     ub.session.rollback()
             else:
-                flash(_("Login failed, No User Linked With OAuth Account"), category="error")
+                flash(_("लगइन असफल भयो, OAuth खातासँग कुनै प्रयोगकर्ता लिङ्क गरिएको छैन"), category="error")
             log.info('Login failed, No User Linked With OAuth Account')
             return redirect(url_for('web.login'))
             # return redirect(url_for('web.login'))
@@ -194,15 +194,15 @@ def unlink_oauth(provider):
                 ub.session.delete(oauth_entry)
                 ub.session.commit()
                 logout_oauth_user()
-                flash(_("Unlink to %(oauth)s Succeeded", oauth=oauth_check[provider]), category="success")
+                flash(_("%(oauth)s मा अनलिंक सफल भयो", oauth=oauth_check[provider]), category="success")
                 log.info("Unlink to {} Succeeded".format(oauth_check[provider]))
             except Exception as ex:
                 log.error_or_exception(ex)
                 ub.session.rollback()
-                flash(_("Unlink to %(oauth)s Failed", oauth=oauth_check[provider]), category="error")
+                flash(_("%(oauth)s लाई अनलिंक गर्न सकिएन", oauth=oauth_check[provider]), category="error")
     except NoResultFound:
         log.warning("oauth %s for user %d not found", provider, current_user.id)
-        flash(_("Not Linked to %(oauth)s", oauth=provider), category="error")
+        flash(_("%(oauth)s सँग लिङ्क गरिएको छैन", oauth=provider), category="error")
     return redirect(url_for('web.profile'))
 
 def generate_oauth_blueprints():
@@ -258,13 +258,13 @@ if ub.oauth_support:
     @oauth_authorized.connect_via(oauthblueprints[0]['blueprint'])
     def github_logged_in(blueprint, token):
         if not token:
-            flash(_("Failed to log in with GitHub."), category="error")
+            flash(_("GitHub सँग लग इन गर्न असफल भयो।"), category="error")
             log.error("Failed to log in with GitHub")
             return False
 
         resp = blueprint.session.get("/user")
         if not resp.ok:
-            flash(_("Failed to fetch user info from GitHub."), category="error")
+            flash(_("GitHub बाट प्रयोगकर्ता जानकारी ल्याउन असफल भयो।"), category="error")
             log.error("Failed to fetch user info from GitHub")
             return False
 
@@ -276,13 +276,13 @@ if ub.oauth_support:
     @oauth_authorized.connect_via(oauthblueprints[1]['blueprint'])
     def google_logged_in(blueprint, token):
         if not token:
-            flash(_("Failed to log in with Google."), category="error")
+            flash(_("Google सँग लग इन गर्न असफल भयो।"), category="error")
             log.error("Failed to log in with Google")
             return False
 
         resp = blueprint.session.get("/oauth2/v2/userinfo")
         if not resp.ok:
-            flash(_("Failed to fetch user info from Google."), category="error")
+            flash(_("Google बाट प्रयोगकर्ता जानकारी ल्याउन असफल भयो।"), category="error")
             log.error("Failed to fetch user info from Google")
             return False
 
@@ -329,10 +329,10 @@ def github_login():
         if account_info.ok:
             account_info_json = account_info.json()
             return bind_oauth_or_register(oauthblueprints[0]['id'], account_info_json['id'], 'github.login', 'github')
-        flash(_("GitHub Oauth error, please retry later."), category="error")
+        flash(_("GitHub Oauth त्रुटि, कृपया पछि पुन: प्रयास गर्नुहोस्।"), category="error")
         log.error("GitHub Oauth error, please retry later")
     except (InvalidGrantError, TokenExpiredError) as e:
-        flash(_("GitHub Oauth error: {}").format(e), category="error")
+        flash(_("GitHub Oauth त्रुटि: {}").format(e), category="error")
         log.error(e)
     return redirect(url_for('web.login'))
 
@@ -353,10 +353,10 @@ def google_login():
         if resp.ok:
             account_info_json = resp.json()
             return bind_oauth_or_register(oauthblueprints[1]['id'], account_info_json['id'], 'google.login', 'google')
-        flash(_("Google Oauth error, please retry later."), category="error")
+        flash(_("Google Oauth त्रुटि, कृपया पछि पुन: प्रयास गर्नुहोस्।"), category="error")
         log.error("Google Oauth error, please retry later")
     except (InvalidGrantError, TokenExpiredError) as e:
-        flash(_("Google Oauth error: {}").format(e), category="error")
+        flash(_("Google Oauth त्रुटि: {}").format(e), category="error")
         log.error(e)
     return redirect(url_for('web.login'))
 

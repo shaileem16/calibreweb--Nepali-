@@ -522,7 +522,7 @@ def render_author_books(page, author_id, order):
                                                         db.books_series_link.c.book == db.Books.id,
                                                         db.Series)
     if entries is None or not len(entries):
-        flash(_("Oops! Selected book is unavailable. File does not exist or is not accessible"),
+        flash(_("उफ्! चयन गरिएको पुस्तक उपलब्ध छैन। फाइल अवस्थित छैन वा पहुँचयोग्य छैन"),
               category="error")
         return redirect(url_for("web.index"))
     if constants.sqlalchemy_version2:
@@ -728,7 +728,7 @@ def render_read_books(page, are_read, as_xml=False, order=None):
         except (KeyError, AttributeError, IndexError):
             log.error("Custom Column No.{} does not exist in calibre database".format(config.config_read_column))
             if not as_xml:
-                flash(_("Custom Column No.%(column)d does not exist in calibre database",
+                flash(_(" अनुकूलन स्तम्भ नम्बर %(column)d क्यालिबर डाटाबेसमा अवस्थित छैन ",
                         column=config.config_read_column),
                       category="error")
                 return redirect(url_for("web.index"))
@@ -1251,7 +1251,7 @@ def register_post():
         return render_title_template('register.html', title=_("दर्ता गर्नुहोस्"), page="register")
     nickname = to_save.get("email", "").strip() if config.config_register_email else to_save.get('name')
     if not nickname or not to_save.get("email"):
-        flash(_("Oops! Please coअर्को प्रयोगकर्ता दर्ता गर्न कृपया एक मिनेट पर्खनुहोस्mplete all fields."), category="error")
+        flash(_("अर्को प्रयोगकर्ता दर्ता गर्न कृपया एक मिनेट पर्खनुहोस्"), category="error")
         return render_title_template('register.html', title=_("दर्ता गर्नुहोस्"), page="register")
     try:
         nickname = check_username(nickname)
@@ -1277,13 +1277,13 @@ def register_post():
             send_registration_mail(to_save.get("email", "").strip(), nickname, password)
         except Exception:
             ub.session.rollback()
-            flash(_("Oops! An unknown error occurred. Please try again later."), category="error")
+            flash(_("उफ्! एउटा अज्ञात त्रुटि भयो। फेरी प्रयास गर्नु होला।"), category="error")
             return render_title_template('register.html', title=_("दर्ता गर्नुहोस्"), page="register")
     else:
-        flash(_("Oops! Your Email is not allowed."), category="error")
+        flash(_("उफ्! तपाईंको इमेल अनुमति छैन।"), category="error")
         log.warning('Registering failed for user "{}" Email: {}'.format(nickname, to_save.get("email","")))
         return render_title_template('register.html', title=_("दर्ता गर्नुहोस्"), page="register")
-    flash(_("Success! Confirmation Email has been sent."), category="success")
+    flash(_("सफलता! पुष्टिकरण इमेल पठाइएको छ।"), category="success")
     return redirect(url_for('web.login'))
 
 
@@ -1294,7 +1294,7 @@ def register():
     if current_user is not None and current_user.is_authenticated:
         return redirect(url_for('web.index'))
     if not config.get_mail_server_configured():
-        flash(_("Oops! Email server is not configured, please contact your administrator."), category="error")
+        flash(_("उफ्! इमेल सर्भर कन्फिगर गरिएको छैन, कृपया आफ्नो प्रशासकलाई सम्पर्क गर्नुहोस्।"), category="error")
         return render_title_template('register.html', title=_("दर्ता गर्नुहोस्"), page="register")
     if feature_support['oauth']:
         register_user_with_oauth()
@@ -1328,8 +1328,8 @@ def login():
     if current_user is not None and current_user.is_authenticated:
         return redirect(url_for('web.index'))
     if config.config_login_type == constants.LOGIN_LDAP and not services.ldap:
-        log.error(u"Cannot activate LDAP authentication")
-        flash(_(u"Cannot activate LDAP authentication"), category="error")
+        log.error(u"LDAP प्रमाणीकरण सक्रिय गर्न सकिँदैन")
+        flash(_(u"LDAP प्रमाणीकरण सक्रिय गर्न सकिँदैन"), category="error")
     return render_login()
 
 
@@ -1341,13 +1341,13 @@ def login_post():
     try:
         limiter.check()
     except RateLimitExceeded:
-        flash(_(u"Please wait one minute before next login"), category="error")
+        flash(_(u"अर्को लगइन गर्नु अघि कृपया एक मिनेट पर्खनुहोस्"), category="error")
         return render_login(form.get("username", ""), form.get("password", ""))
     if current_user is not None and current_user.is_authenticated:
         return redirect(url_for('web.index'))
     if config.config_login_type == constants.LOGIN_LDAP and not services.ldap:
-        log.error(u"Cannot activate LDAP authentication")
-        flash(_(u"Cannot activate LDAP authentication"), category="error")
+        log.error(u"LDAP प्रमाणीकरण सक्रिय गर्न सकिँदैन")
+        flash(_(u"LDAP प्रमाणीकरण सक्रिय गर्न सकिँदैन"), category="error")
     user = ub.session.query(ub.User).filter(func.lower(ub.User.name) == form.get('username', "").strip().lower()) \
         .first()
     remember_me = bool(form.get('remember_me'))
@@ -1369,24 +1369,24 @@ def login_post():
                                      "warning")
         elif login_result is None:
             log.info(error)
-            flash(_(u"Could not login: %(message)s", message=error), category="error")
+            flash(_(u" लगइन गर्न सकिएन:%(message)s", message=error), category="error")
         else:
             ip_address = request.headers.get('X-Forwarded-For', request.remote_addr)
             log.warning('LDAP Login failed for user "%s" IP-address: %s', form['username'], ip_address)
-            flash(_(u"Wrong Username or Password"), category="error")
+            flash(_(u"गलत प्रयोगकर्ता नाम वा पासवर्ड"), category="error")
     else:
         ip_address = request.headers.get('X-Forwarded-For', request.remote_addr)
         if form.get('forgot', "") == 'forgot':
             if user is not None and user.name != "Guest":
                 ret, __ = reset_password(user.id)
                 if ret == 1:
-                    flash(_(u"New Password was send to your email address"), category="info")
+                    flash(_(u"नयाँ पासवर्ड तपाईको इमेल ठेगानामा पठाइएको थियो"), category="info")
                     log.info('Password reset for user "%s" IP-address: %s', form['username'], ip_address)
                 else:
                     log.error(u"An unknown error occurred. Please try again later")
-                    flash(_(u"An unknown error occurred. Please try again later."), category="error")
+                    flash(_(u"एउटा अज्ञात त्रुटि भयो। फेरी प्रयास गर्नु होला."), category="error")
             else:
-                flash(_(u"Please enter valid username to reset password"), category="error")
+                flash(_(u"पासवर्ड रिसेट गर्न वैध प्रयोगकर्ता नाम प्रविष्ट गर्नुहोस्"), category="error")
                 log.warning('Username missing for password reset IP-address: %s', ip_address)
         else:
             if user and check_password_hash(str(user.password), form['password']) and user.name != "Guest":
@@ -1398,7 +1398,7 @@ def login_post():
                                          "success")
             else:
                 log.warning('Login failed for user "{}" IP-address: {}'.format(form['username'], ip_address))
-                flash(_(u"Wrong Username or Password"), category="error")
+                flash(_(u"गलत प्रयोगकर्ता नाम वा पासवर्ड"), category="error")
     return render_login(form.get("username", ""), form.get("password", ""))
 
 
@@ -1468,16 +1468,16 @@ def change_profile(kobo_support, local_oauth_check, oauth_status, translations, 
 
     try:
         ub.session.commit()
-        flash(_("Success! Profile Updated"), category="success")
+        flash(_("सफलता! प्रोफाइल अपडेट गरियो"), category="success")
         log.debug("Profile updated")
     except IntegrityError:
         ub.session.rollback()
-        flash(_("Oops! An account already exists for this Email."), category="error")
+        flash(_("उफ्! यस इमेलको लागि पहिले नै खाता अवस्थित छ।"), category="error")
         log.debug("Found an existing account for this Email")
     except OperationalError as e:
         ub.session.rollback()
         log.error("Database error: %s", e)
-        flash(_("Oops! Database Error: %(error)s.", error=e), category="error")
+        flash(_("उफ्! डाटाबेस त्रुटि: %(error)s.", error=e), category="error")
 
 
 @web.route("/me", methods=["GET", "POST"])
@@ -1519,7 +1519,7 @@ def read_book(book_id, book_format):
     book.ordered_authors = calibre_db.order_authors([book], False)
 
     if not book:
-        flash(_("Oops! Selected book is unavailable. File does not exist or is not accessible"),
+        flash(_("उफ्! चयन गरिएको पुस्तक उपलब्ध छैन। फाइल अवस्थित छैन वा पहुँचयोग्य छैन"),
               category="error")
         log.debug("Selected book is unavailable. File does not exist or is not accessible")
         return redirect(url_for("web.index"))
@@ -1561,7 +1561,7 @@ def read_book(book_id, book_format):
                 return render_title_template('readcbr.html', comicfile=all_name, title=title,
                                              extension=fileExt)
         log.debug("Selected book is unavailable. File does not exist or is not accessible")
-        flash(_("Oops! Selected book is unavailable. File does not exist or is not accessible"),
+        flash(_(""),
               category="error")
         return redirect(url_for("web.index"))
 
@@ -1606,6 +1606,6 @@ def show_book(book_id):
                                      page="book")
     else:
         log.debug("Selected book is unavailable. File does not exist or is not accessible")
-        flash(_("Oops! Selected book is unavailable. File does not exist or is not accessible"),
+        flash(_("उफ्! चयन गरिएको पुस्तक उपलब्ध छैन। फाइल अवस्थित छैन वा पहुँचयोग्य छैन"),
               category="error")
         return redirect(url_for("web.index"))
