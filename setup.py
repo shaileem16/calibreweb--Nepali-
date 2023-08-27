@@ -24,5 +24,5 @@ def find_version(*file_paths):
 setup(
     packages=find_packages("src"),
     package_dir = {'': 'src'},
-    version=find_version("src", "calibreweb-nepali", "cps", "constants.py")
+    version=find_version( "/home/shail/calibreweb--Nepali-/cps/constants.py")
 )

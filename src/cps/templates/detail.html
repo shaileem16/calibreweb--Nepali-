@@ -92,12 +92,21 @@
                                     - {{ entry.reader_list[0] }}</a>
                             {% endif %}
                         </div>
+                        <!-- Add the Play Audio button
+                                <button id="play-audio" type="button" class="btn btn-success">
+                                  <span class="glyphicon glyphicon-volume-up"></span> {{ _('आवाजमा सुन्नुहोस्') }}
+                                </button>
+                        </div>
+                                <audio id="audio-player">
+                                    <source id="audio-source" type="audio/mpeg">
+                                               
+                                </audio> -->
                     {% endif %}
                     {% if entry.audio_entries|length > 0 and current_user.role_viewer() %}
                         <div class="btn-group" role="group">
                             {% if entry.audio_entries|length > 1 %}
                                 <button id="listen-in-browser" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="glyphicon glyphicon-music"></span> {{ _('ब्राउजमा सुन्नुहोस्') }}
+                                    <span class="glyphicon glyphicon-music"></span> {{ _('listen-in-browser') }}
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="listen-in-browser">
